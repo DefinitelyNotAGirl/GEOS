@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.java": "java",
+        "mem.h": "c",
+        "stdint.h": "c",
+        "paging.h": "c",
+        "master.h": "c",
+        "util.h": "c",
+        "cpuid.h": "c"
+    }
+}
