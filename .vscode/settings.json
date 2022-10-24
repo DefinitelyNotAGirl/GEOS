@@ -1,11 +1,16 @@
 {
     "files.associations": {
         "*.java": "java",
+        "*.c": "c",
         "mem.h": "c",
         "stdint.h": "c",
         "paging.h": "c",
         "master.h": "c",
         "util.h": "c",
-        "cpuid.h": "c"
-    }
+        "cpuid.h": "c",
+        "print.c": "cpp",
+        "std.h": "c",
+        "compare": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
