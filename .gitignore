@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# images
+*.iso
+
 # Compiled Object files
 *.slo
 *.lo
@@ -34,4 +37,3 @@
 # folders
 build/
 bin/
-.vscode/

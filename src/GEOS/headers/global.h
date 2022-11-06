@@ -1,8 +1,12 @@
-/*
- * mykernel/cpp/link.ld
- *
- * Copyright (C) 2017 - 2021 bzt (bztsrc@gitlab)
- *
+/**
+ * Created Date: Monday October 31st 2022
+ * Author: DefinitelyNotAGirl@github
+ * -----
+ * Last Modified: Monday October 31st 2022 3:16:23 pm
+ * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
+ * -----
+ * Copyright (c) 2022 DefinitelyNotAGirl@github
+ * 
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
  * files (the "Software"), to deal in the Software without
@@ -10,10 +14,10 @@
  * modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -22,37 +26,31 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
- *
- * This file is part of the BOOTBOOT Protocol package.
- * @brief An example linker script for sample kernel
- *
  */
+#pragma once
+#include "../master.h"
 
-ENTRY(main)
+#define INTTS_SIZE 30
+#define NORETURN [[noreturn]]
 
-mmio        = 0xfffffffff8000000;              /* these are configurable for level 2 loaders */
-fb          = 0xfffffffffc000000;
-bootboot    = 0xffffffffffe00000;
-environment = 0xffffffffffe01000;
-/* initstack = 1024; */
-PHDRS
-{
-  boot PT_LOAD;                                /* one single loadable segment */
-}
-SECTIONS
-{
-    . = 0xffffffffffe02000;
-    .text : {
-        KEEP(*(.text.boot)) *(.text .text.*)   /* code */
-        *(.rodata .rodata.*)                   /* data */
-        *(.data .data.*)
-    } :boot
-    .bss (NOLOAD) : {                          /* bss */
-        . = ALIGN(16);
-        *(.bss .bss.*)
-        *(COMMON)
-    } :boot
+void printINFO(const char* str);
+void printWARNING(const char* str);
+void printERROR(const char* str);
+void printOK();
+void printFAILED();
 
-    /DISCARD/ : { *(.eh_frame) *(.comment) }
-}
+void dumpIDT();
+void setupIDT();
+void setupPaging();
+void setupGDT();
+extern "C" uint64_t getIDTaddr();
+extern "C" uint64_t getGDTaddr();
+extern "C" void loadIDT();
+extern "C" void loadGDT();
+extern "C" void setR15(uint64_t value);
 
+void INTTS(int64_t value,int base,char* result);
+
+#include "../../bootboot.h"
+#include "../../defaultGEOSfont.h"
+extern BOOTBOOT bootboot;               // see bootboot.h

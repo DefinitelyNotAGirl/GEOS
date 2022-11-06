@@ -2,6 +2,7 @@
     "files.associations": {
         "*.java": "java",
         "*.c": "c",
+        "*.h": "cpp",
         "mem.h": "c",
         "stdint.h": "c",
         "paging.h": "c",
@@ -10,7 +11,12 @@
         "cpuid.h": "c",
         "print.c": "cpp",
         "std.h": "c",
-        "compare": "cpp"
+        "compare": "cpp",
+        "source_location": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "string": "cpp",
+        "vector": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

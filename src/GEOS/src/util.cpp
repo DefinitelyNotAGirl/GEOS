@@ -1,8 +1,12 @@
-/*
- * mykernel/cpp/link.ld
- *
- * Copyright (C) 2017 - 2021 bzt (bztsrc@gitlab)
- *
+/**
+ * Created Date: Sunday October 30th 2022
+ * Author: DefinitelyNotAGirl@github
+ * -----
+ * Last Modified: Sunday October 30th 2022 3:52:20 pm
+ * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
+ * -----
+ * Copyright (c) 2022 DefinitelyNotAGirl@github
+ * 
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
  * files (the "Software"), to deal in the Software without
@@ -10,10 +14,10 @@
  * modify, merge, publish, distribute, sublicense, and/or sell copies
  * of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -22,37 +26,23 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
- *
- * This file is part of the BOOTBOOT Protocol package.
- * @brief An example linker script for sample kernel
- *
  */
+#pragma once
+#include "../master.h"
 
-ENTRY(main)
-
-mmio        = 0xfffffffff8000000;              /* these are configurable for level 2 loaders */
-fb          = 0xfffffffffc000000;
-bootboot    = 0xffffffffffe00000;
-environment = 0xffffffffffe01000;
-/* initstack = 1024; */
-PHDRS
+void INTTS(int64_t value,int base,char* result)
 {
-  boot PT_LOAD;                                /* one single loadable segment */
-}
-SECTIONS
-{
-    . = 0xffffffffffe02000;
-    .text : {
-        KEEP(*(.text.boot)) *(.text .text.*)   /* code */
-        *(.rodata .rodata.*)                   /* data */
-        *(.data .data.*)
-    } :boot
-    .bss (NOLOAD) : {                          /* bss */
-        . = ALIGN(16);
-        *(.bss .bss.*)
-        *(COMMON)
-    } :boot
+    char str[INTTS_SIZE] = {0x00};
+    char* ret = std::itoa(value,str,base);
 
-    /DISCARD/ : { *(.eh_frame) *(.comment) }
+    memcpy(str,result,INTTS_SIZE);
 }
 
+bool strEqual(char* a,char* b);
+
+uint64_t strlen(const char* str)
+{
+    uint64_t I = 0;
+    while(str[I++]!=0x00);
+    return I;
+}

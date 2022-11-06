@@ -1,5 +1,5 @@
 /*
- * mykernel/cpp/link.ld
+ * mykernel/cpp/kernel.cpp
  *
  * Copyright (C) 2017 - 2021 bzt (bztsrc@gitlab)
  *
@@ -24,35 +24,42 @@
  * DEALINGS IN THE SOFTWARE.
  *
  * This file is part of the BOOTBOOT Protocol package.
- * @brief An example linker script for sample kernel
+ * @brief A sample BOOTBOOT compatible kernel
  *
  */
+#pragma once
 
-ENTRY(main)
+///* we don't assume cstdint exists */
+#include "GEOS/master.h"
+#include "bootboot.h"
 
-mmio        = 0xfffffffff8000000;              /* these are configurable for level 2 loaders */
-fb          = 0xfffffffffc000000;
-bootboot    = 0xffffffffffe00000;
-environment = 0xffffffffffe01000;
-/* initstack = 1024; */
-PHDRS
+/* imported virtual addresses, see linker script */
+extern BOOTBOOT bootboot;               // see bootboot.h
+extern unsigned char environment[4096]; // configuration, UTF-8 text key=value pairs
+extern uint8_t fb;                      // linear framebuffer mapped
+
+/******************************************
+ * Entry point, called by BOOTBOOT Loader *
+ ******************************************/
+void colorScreen(uint32_t c)
 {
-  boot PT_LOAD;                                /* one single loadable segment */
+    uint32_t* framebuffer = bootboot.fb_ptr;
+    for(uint64_t pixel = 0;pixel<bootboot.fb_width*bootboot.fb_height;pixel++)
+    {
+        framebuffer[pixel] = c;
+    }
 }
-SECTIONS
-{
-    . = 0xffffffffffe02000;
-    .text : {
-        KEEP(*(.text.boot)) *(.text .text.*)   /* code */
-        *(.rodata .rodata.*)                   /* data */
-        *(.data .data.*)
-    } :boot
-    .bss (NOLOAD) : {                          /* bss */
-        . = ALIGN(16);
-        *(.bss .bss.*)
-        *(COMMON)
-    } :boot
 
-    /DISCARD/ : { *(.eh_frame) *(.comment) }
+int main()
+{
+    //setup to enter geos_main
+    geos::video::screenWidth = bootboot.fb_width;
+    geos::video::screenHeight = bootboot.fb_height;
+    geos::video::framebuffer = bootboot.fb_ptr;
+    colorScreen(0x00050505);
+    geos_main();
+
+    //hang up (this could should never be reached in a release build)
+    while(1);
 }
 
