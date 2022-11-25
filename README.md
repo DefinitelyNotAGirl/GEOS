@@ -82,9 +82,13 @@ for any languages i didnt mention, just assume they wont be supported.
 # **Credits**
 ## **bzt (bztsrc@gitlab) - [BOOTBOOT](https://gitlab.com/bztsrc/bootboot)**
 ...for creating BOOTBOOT, the bootloader used by GEOS, which not only spares me from having to go through the pain of making a 64-bit CPU execute 64 bit instructions, but on top of that is also multiboot compliant therefore making GEOS mutliboot compatible
+
+# **Rant**
 ## **Nvidia**
-...for not offering any documentation on their hardware to the general public.
+Not offering any documentation on their hardware to the general public.
 to qoute Linus Torvalds, "Fuck you, nvidia"
+## **UEFI**
+Honestly, everyone who's got anything to do with EFI/UEFI can go to hell and stay there, BIOS was just fine.
 
 # **LICENSE**
 
