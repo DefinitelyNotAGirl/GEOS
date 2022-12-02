@@ -3,6 +3,7 @@
 
 # images
 *.iso
+*.img
 
 # Compiled Object files
 *.slo
@@ -34,6 +35,14 @@
 *.out
 *.app
 
+# devices
+*.dev
+
+# misc
+*.hexdump
+
 # folders
 build/
 bin/
+geosfsroot/
+mnt/
