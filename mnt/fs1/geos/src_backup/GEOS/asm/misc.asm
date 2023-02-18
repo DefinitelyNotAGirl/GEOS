@@ -2,7 +2,7 @@
 ; Created Date: Friday November 4th 2022
 ; Author: DefinitelyNotAGirl@github
 ; -----
-; Last Modified: Friday November 4th 2022 12:30:48 pm
+; Last Modified: Saturday November 19th 2022 8:05:57 pm
 ; Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
 ; -----
 ; Copyright (c) 2022 DefinitelyNotAGirl@github
@@ -29,7 +29,6 @@
 ;
 
 global tripleFault
-global setR15
 
 global getRAX
 global getRBX
@@ -62,10 +61,6 @@ global getcr3
 global getcr4
 
 section .text
-
-setR15:
-    mov r15, rdi; for some reason the argument passed to setR15 ends up in rdi
-    ret
 
 ; uint64_t getR..()
 getEAX:
@@ -187,17 +182,3 @@ getcr3:
 getcr4:
     mov rax, cr4
     ret
-
-;(not my proudest moment ngl)
-; mom, can we have reboot?
-; no, we have reboot at home.
-; reboot at home:
-tripleFault:
-    lgdt [TRIPLEFAULTGDT.pointer]; load invalid gdt
-    int 0xFF;attempt to raise interrupt, should cause triple fault
-
-section .rodata
-TRIPLEFAULTGDT:
-.pointer:
-    dq 0
-    dw 0

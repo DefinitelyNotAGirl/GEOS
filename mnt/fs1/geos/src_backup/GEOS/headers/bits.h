@@ -2,7 +2,7 @@
  * Created Date: Wednesday October 26th 2022
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday October 26th 2022 7:05:31 pm
+ * Last Modified: Saturday November 19th 2022 8:05:57 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2022 DefinitelyNotAGirl@github
@@ -30,5 +30,5 @@
 #pragma once
 #include "../master.h"
 
-void setBit(u8* array,u64 bit,bool value);
-bool getBit(u8* array,u64 bit);
+ENTRY64 void setBit(u8* array,u64 bit,bool value);
+ENTRY64 bool getBit(u8* array,u64 bit);

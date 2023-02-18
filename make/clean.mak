@@ -38,3 +38,4 @@ clean_img:
 
 clean: clean_code clean_img
 	-rm $(WORKSPACE)*.dump
+	-rm $(WORKSPACE)*.hexdump

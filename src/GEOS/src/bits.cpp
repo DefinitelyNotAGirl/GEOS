@@ -2,8 +2,8 @@
  * Created Date: Wednesday October 26th 2022
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Saturday November 12th 2022 5:13:46 am
- * Modified By: Leonexxe (Leon Marcellus Nitschke-Höfer) (Leonexxe@projectX.leonexxe.de)
+ * Last Modified: Saturday November 19th 2022 8:05:57 pm
+ * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2022 <<company>>
  * 
@@ -30,14 +30,14 @@
 #pragma once
 #include "../master.h"
 
-void setBit(u8* array,u64 bit,bool value)
+ENTRY64 void setBit(u8* array,u64 bit,bool value)
 {
     u64 n = bit/8;
     u64 k = bit-(8*n);
     array[n] ^= (-value ^ array[n]) & (1UL << k);
 }
 
-bool getBit(u8* array,u64 bit)
+ENTRY64 bool getBit(u8* array,u64 bit)
 {
     u64 n = bit/8;
     u64 k = bit-(8*n);

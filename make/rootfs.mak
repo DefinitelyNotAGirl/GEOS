@@ -28,7 +28,7 @@
 # DEALINGS IN THE SOFTWARE.
 #
 
-fsroot=$(WORKSPACE)geosfsroot
+fsroot=$(WORKSPACE)GEOS_DISK_ROOT/GFS0MSP
 updateRootFS: fillRootFS copyRootFS
 
 fillRootFS:

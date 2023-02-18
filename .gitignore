@@ -37,6 +37,7 @@
 
 # devices
 *.dev
+*.vhd
 
 # misc
 *.hexdump
@@ -45,4 +46,5 @@
 build/
 bin/
 geosfsroot/
+GEOS_DISK_ROOT/
 mnt/

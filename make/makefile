@@ -29,11 +29,18 @@
 # 
 
 target=BIOS
+firmware=SEABIOS
 WORKSPACE=
 img=$(WORKSPACE)geos.img
 MAKE=$(WORKSPACE)make
 
-all: clean buildnum compile updateRootFS createIMG run
+debug:
+	$(MAKE) all KERNEL_REGFIX="-ffixed-r14 -ffixed-r15" KERNEL_DEFINE="-D GEOS_DEBUG"
+
+release:
+	$(MAKE) all KERNEL_REGFIX="" KERNEL_DEFINE="-D GEOS_RELEASE"
+
+all: clean buildnum UEFI_compile UEFI_syspart compile updateRootFS createIMG run 
 
 hexdump:
 #	create file offset by 0x7C00 (31744 dd doesent take hex numbers)
@@ -45,9 +52,15 @@ hexdump:
 #	get rid of temp image
 	rm $(img).hexdump.temp
 
+disassembly:
+	objdump --adjust-vma=0x800000 -D -S build/asm64.o -m i386:x86-64 > asm64.dump
+
+include make/make.dev
 include make/run.mak
 include make/buildnumber.mak
 include make/rootfs.mak
 include make/compile.mak
 include make/img.mak
+include make/UEFI.mak
+include make/disk.mak
 include make/clean.mak

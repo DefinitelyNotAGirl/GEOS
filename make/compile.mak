@@ -43,7 +43,8 @@ C_FLAGS=-c -nostdlib -Wall -ffreestanding -fno-stack-protector -I"./stdlibc/" -f
 
 #c++ options
 CPP_NOWARN=-c -Wno-multichar -Wno-unused-variable -Wno-literal-suffix
-CPP_FLAGS= -Wall -ffreestanding -fno-stack-protector -fno-exceptions -fno-rtti -nostdinc -nostdlib -I../../dist/ -fpermissive -I"./stdlibc++/" -ffixed-r15 $(CPP_NOWARN) $(BUILD_NUM_FLAG)
+CPP_OPTIMIZE=-O0
+CPP_FLAGS= -Wall -ffreestanding -fno-stack-protector -fno-exceptions -fno-rtti -nostdinc -nostdlib -I../../dist/ -fpermissive -I"./stdlibc++/" $(CPP_NOWARN) $(CPP_OPTIMIZE) $(BUILD_NUM_FLAG)
 
 # dirs
 OUT=build
@@ -56,6 +57,9 @@ OUT_16  =$(WORKSPACE)$(BIN)/bin16
 OUT_32  =$(WORKSPACE)$(BIN)/bin32
 OUT_64  =$(WORKSPACE)$(BIN)/bin64
 
+KERNEL_DEFINE=
+KERNEL_REGFIX=
+
 compile_boot:
 	nasm -f bin $(SRC)/boot.asm -o $(OUT_BOOT)
 
@@ -66,7 +70,7 @@ compile_32:
 
 compile_64:
 	nasm -f elf64 $(SRC)/GEOS/asm/asm_main.asm -o $(OUT)/asm64.o
-	$(CPP) $(CPP_FLAGS) $(SRC)/GEOS/main.cpp -o $(OUT)/c64.o
-	$(LD) -O binary $(OUT)/asm64.o $(OUT)/c64.o -o $(OUT_64) $(LD_FLAGS)
+	$(CPP) $(CPP_FLAGS) $(KERNEL_DEFINE) $(KERNEL_REGFIX) $(SRC)/GEOS/main.cpp -o $(OUT)/c64.o
+	$(LD) -O binary $(OUT)/asm64.o $(OUT)/c64.o -o $(OUT_64) $(LD_FLAGS) -T $(WORKSPACE)link64.ld
 
 compile: compile_boot compile_32 compile_64

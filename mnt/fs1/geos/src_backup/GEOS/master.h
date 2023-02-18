@@ -35,6 +35,14 @@
 //###############################################//
 //###############################################//
 
+void sysfreeze();
+
+//define ATTRIBUTES
+#define PACKED __attribute__((packed))
+#define ENTRY64 __attribute__((section(".entry64Code")))
+#define ENTRY64_DATA __attribute__((section(".entry64Data")))
+#define NORETURN __attribute__((noreturn))
+
 //get basics
 #include "headers/pre.h"
 #include "headers/std.h"
@@ -49,6 +57,8 @@
 
 //data structures
 #include "headers/ringbuff.h"
+#include "headers/bootInfo.h"
+#include "headers/lowLevelStructs.h"
 
 //time
 #include "headers/time.h"
@@ -63,10 +73,10 @@ using time::timestamp;
 
 //exceptions
 #include "headers/except.h"
-
 //bootboot
 #include "../bootboot.h"
-#include "../kernel.cpp"
+BOOTBOOT bootboot;
+//#include "../kernel.cpp"
 
 //stdlibc++
 #include <itoa.cpp>
@@ -99,6 +109,9 @@ using time::timestamp;
 //################### implementation ###################//
 //######################################################//
 //######################################################//
+
+//entry64
+#include "src/entry64.cpp"
 
 //main source
 #include "main.cpp"

@@ -30,6 +30,7 @@
 
 
 [BITS 64]
+%include "src/GEOS/asm/entry64.asm"
 default rel
 %include "src/GEOS/asm/data.asm"
 %include "src/GEOS/asm/loadGDT.asm"

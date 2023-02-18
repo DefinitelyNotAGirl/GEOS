@@ -30,8 +30,6 @@
 #pragma once
 #include "../master.h"
 
-#define PACKED __attribute__((packed))
-
 struct mutlibootInfo
 {
     uint32_t flags                ;

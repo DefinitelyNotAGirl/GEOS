@@ -27,11 +27,22 @@
 ; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 ; DEALINGS IN THE SOFTWARE.
 ;
+%define EFER_LME   1 << 8
+%define EFER_NXE   1 << 11
+%define CR0_PE     1 << 0
+%define CR0_PG     1 << 31
+%define CR4_PSE    1 << 4
+%define CR4_PAE    1 << 5
+%define CR4_PGE    1 << 7
+
 extern stage3
 global _start
 global exit
-global detectMemory
+global passCRT64
+section .text
 _start:
+    cli
+
     ;reset stack
     mov esp, 0x0000FFEF
     mov ebp, 0x00000000
@@ -49,17 +60,66 @@ _start:
     cli
     hlt
 
-disableProtMode:
-    mov eax, cr0
-    and eax, 0b01111111111111111111111111111111; clear PE bit
-    mov cr0, eax
+passCRT64:
+    pop edi; pop bootInfo address into EDI
+    ;copy entry64 to from 0xbc00 to 0x800000
+    mov edx, 0x00bc00
+    mov eax, 0x800000
+    mov ecx, 0x004000
+    ;kids, dont forget to actually call the functions you wanna use 
+    ;(i deff. didnt just run into bug due to not calling memcpy *cough* cough*)
+    call memcpy
+
+    ;set EFER.LME
+    mov ecx, 0xC0000080; EFER MSR selector.
+    rdmsr
+    or eax, EFER_LME
+    or eax, EFER_NXE
+    wrmsr 
+
+    ; Point CR3 to PML4
+    mov eax, 0x200000
+    mov cr3, eax
+
+    mov  eax, CR4_PAE | CR4_PGE | CR4_PSE; Set PAE- (Physical Address Extensions) and
+    mov  cr4, eax              ; PGE- (Page Global Enable) and PSE- (Page Size Extensions)
+
+    mov ebx, cr0            ; Get CR0.
+    or  ebx, CR0_PG | CR0_PE; Set PG (Paging) and PE (Protection Enabled).
+    mov cr0, ebx            ; Set flags to CR0.
+
+    jmp 0x30:0x800000; far jump to entry64
+    
+    cli
+    hlt
+
+; edx: source
+; eax: dst
+; ecx: len
+memcpy:
+    push edi
+
+    mov edi, ecx
+    xor ecx, ecx
+.loop:
+    cmp edi, 0
+    je .epi
+    dec edi
+
+    mov ecx, [edx]
+    mov [eax], ecx
+
+    inc edx
+    inc eax
+    jmp .loop
+.epi:
+    pop edi
     ret
-enableProtMode:
-    mov eax, cr0
-    or eax, 1; set PE bit
-    mov cr0, eax
-    ret
+
 
 exit:
     cli
     hlt
+
+section .data
+align 4096

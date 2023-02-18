@@ -30,13 +30,18 @@
 #pragma once
 #include "../code32.c"
 
+#define AT_ADDR(addr,type) ((type*)addr)[0]
 #include "memory.h"
 void moveMMAP()
 {
     char* RAM = "reading memory map\n";
-    uint32_t* ancientMap = (uint32_t)0x7C00;
+    uint32_t* ancientMap = (uint32_t*)0x7C00;
+    uint32_t* mapSize = AT_ADDR(0xFFFB,uint32_t);
+    printStr("map size: ");
+    printuint(mapSize);
+    printChar('\n');
     uint32_t tSize = 0;
-    for(uint32_t I = 0;I<mmap.size;I++)
+    for(uint32_t I = 0;I<mapSize;I++)
     {
         mmap_entries[I].baseLOW  = ancientMap[0];
         mmap_entries[I].baseHIGH = ancientMap[1];
@@ -47,10 +52,20 @@ void moveMMAP()
         mmap_entries[I].type = ancientMap[4];
         mmap_entries[I].ext_attr = ancientMap[5];
 
-        tSize += ancientMap[2];
+        printStr(" | ");
+        printuint(I);
+        printStr(" | ");
+        printuint(ancientMap[0]);
+        printStr(" | ");
+        printuint(ancientMap[2]);
+        printStr(" | ");
+        printuint(ancientMap[4]);
+        printStr(" | ");
+        printuint(ancientMap[5]);
+        printStr(" |\n");
 
+        tSize += ancientMap[2];
         ancientMap+=24;//next entry
-        printStr(RAM);
     }
 
     printStr("total mem size: ");

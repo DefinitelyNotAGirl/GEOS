@@ -53,25 +53,6 @@ void sysfreeze()
     __asm__("hlt");
 }
 
-NORETURN void disableWatchdog()
-{
-}
-
-//not that i plan on ever returning to the firmware 
-//but ill just leave this here for potential future use
-NORETURN void UEFIreturn()
-{
-    disableWatchdog();
-}
-
-void UEFIinitiate()
-{
-    computer.isUEFI = true;
-    disableWatchdog();
-
-    geos_main();
-}
-
 void geos_main()
 {
     uint32_t coreID = getCurrentCoreID();

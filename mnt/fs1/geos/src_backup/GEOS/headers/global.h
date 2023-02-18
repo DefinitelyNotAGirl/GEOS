@@ -80,7 +80,6 @@ extern "C" void tripleFault();
 
 void INTTS(int64_t value,int base,char* result);
 
-#include "../../bootboot.h"
 #include "../../defaultGEOSfont.h"
 extern BOOTBOOT bootboot;               // see bootboot.h
 
