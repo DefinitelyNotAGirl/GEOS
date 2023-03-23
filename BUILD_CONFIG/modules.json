@@ -1,0 +1,16 @@
+{
+    "INIT"    :["sys"],
+    "uefiBS"    :["boot"],
+    "ext4.fs"   :["sys"],
+    "ext3.fs"   :["sys"],
+    "ext2.fs"   :["sys"],
+    "gfs0.fs"   :["sys"],
+    "fat32.fs"  :["sys"],
+    "ntfs.fs"   :["sys"],
+    "ACPI"      :["sys"],
+    "AHCI"      :["sys"],
+    "IDE"       :["sys"],
+    "PCIe"      :["sys"],
+    "SATA"      :["sys"],
+    "SWAP"      :["sys"]
+}

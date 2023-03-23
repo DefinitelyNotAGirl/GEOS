@@ -33,12 +33,13 @@ dd=dd
 createIMG_UEFI:
 
 createIMG_BIOS:
+	$(info creating 64MB MBR partition...)
 # 	copy code to 64MB MBR partition
-	$(dd) if=/dev/zero  	of=$(img) conv=notrunc bs=512 count=125000 	seek=0
+	@$(dd) if=/dev/zero  	of=$(img) conv=notrunc bs=512 count=125000 	seek=0 $(STDOUT)
 
-	$(dd) if=$(OUT_BOOT)   	of=$(img) conv=notrunc bs=512 count=4      	seek=0
-	$(dd) if=$(OUT_32)   	of=$(img) conv=notrunc bs=512 count=27     	seek=4
-	$(dd) if=$(OUT_64)   	of=$(img) conv=notrunc bs=512 count=124968 	seek=32
+	@$(dd) if=$(OUT_BOOT)   	of=$(img) conv=notrunc bs=512 count=4      	seek=0 $(STDOUT)
+	@$(dd) if=$(OUT_32)   	of=$(img) conv=notrunc bs=512 count=27     	seek=4 $(STDOUT)
+	@$(dd) if=$(OUT_64)   	of=$(img) conv=notrunc bs=512 count=124968 	seek=32 $(STDOUT)
 
 createIMG:
 ifeq ($(target),BIOS)

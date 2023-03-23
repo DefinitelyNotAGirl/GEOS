@@ -32,36 +32,57 @@ espRoot=$(WORKSPACE)GEOS_DISK_ROOT/ESP
 diskRoot=$(WORKSPACE)GEOS_DISK_ROOT
 
 wipeESP:
-	rm -r $(espRoot)
+	$(info wiping EFI system parition...)
+	@-rm -r $(espRoot) $(STDOUT)
 
 fillESP:
-	mkdir $(espRoot)
-	cp $(WORKSPACE)$(BIN)/main.efi $(espRoot)/GEOS/GEOS.efi
+	$(info populating EFI system partition...)
+	@-mkdir $(espRoot) $(STDOUT)
+	@-mkdir $(espRoot)/EFI $(STDOUT)
+	@-mkdir $(espRoot)/EFI/BOOT $(STDOUT)
+#	@-mkdir $(espRoot)/BOOT $(STDOUT)
+	@-mkdir $(espRoot)/GEOS $(STDOUT)
+
+#	BOOTX64.EFI	
+	@cp $(WORKSPACE)$(BIN)/main.efi $(espRoot)/GEOS/GEOS.efi $(STDOUT)
+	@cp $(espRoot)/GEOS/GEOS.efi $(espRoot)/EFI/BOOT/BOOTX64.EFI $(STDOUT)
+
+#	GEOS config
+	@cp $(WORKSPACE)OS_CONFIG/boot.ini $(espRoot)/GEOS/boot.ini $(STDOUT)
 
 mkESP: wipeESP fillESP
 
-mkDisk: disk_cleanup disk_create disk
+mkDisk: mkESP mkRootFS disk_cleanup disk_create disk
 
 disk: disk_ESP disk_MSP
 
-disk_fill: disk_ESP disk_MSP
-
 disk_cleanup:
-	-umount mnt/fs0
-	-umount mnt/fs1
-	losetup -d $(LOOPBACKDEV)
+	$(info cleaning up virtual disk setup...)
+	@-umount mnt/fs0 $(STDOUT)
+	@-umount mnt/fs1 $(STDOUT)
+	@-losetup -d $(LOOPBACKDEV) $(STDOUT)
 
 disk_create:
-	dd if=/dev/zero of=DISK.vhd bs=1M count=1024
-	echo -e "g\nn\n1\n\n+128M\nn\n2\n\n\nw\n" | fdisk DISK.vhd
-	losetup -P $(LOOPBACKDEV) $(WORKSPACE)DISK.vhd
-	mkfs -t vfat $(LOOPBACKDEV)p1
-	mkfs -t ext4 $(LOOPBACKDEV)p2
-	mount $(LOOPBACKDEV)p1 $(WORKSPACE)mnt/fs0
-	mount $(LOOPBACKDEV)p2 $(WORKSPACE)mnt/fs1
+	$(info setting up virtual disk...)
+	$(info writing blank disk image...)
+	@dd if=/dev/zero of=DISK.vhd bs=1M count=1024 $(STDOUT)
+	$(info paritioning disk...)
+	@echo -e "g\nn\n1\n\n+128M\nn\n2\n\n\nt\n1\n1\nw\n" | fdisk DISK.vhd $(STDOUT)
+	$(info creating loopback...)
+	@losetup -P $(LOOPBACKDEV) $(WORKSPACE)DISK.vhd $(STDOUT)
+	$(info creating filesystems...)
+	@mkfs.vfat -F 32 -n "EFI System" $(LOOPBACKDEV)p1 $(STDOUT)
+	@mkfs -t ext4 $(LOOPBACKDEV)p2 $(STDOUT)
+	$(info mounting file systems...)
+	@mount $(LOOPBACKDEV)p1 $(WORKSPACE)mnt/fs0 $(STDOUT)
+	@mount $(LOOPBACKDEV)p2 $(WORKSPACE)mnt/fs1 $(STDOUT)
 
-disk_ESP:
-	cp -r $(espRoot)/. mnt/fs0/
+disk_ESP: fillESP
+	$(info populating EFI system partition...)
+	@cp -r $(espRoot)/. mnt/fs0/ $(STDOUT)
 
 disk_MSP:
-	cp -r $(diskRoot)/GFS0MSP/. mnt/fs1/
+	$(info populating main system partition...)
+	@cp -r $(diskRoot)/GFS0MSP/. mnt/fs1/ $(STDOUT)
+
+

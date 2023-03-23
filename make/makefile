@@ -28,39 +28,31 @@
 # DEALINGS IN THE SOFTWARE.
 # 
 
-target=BIOS
-firmware=SEABIOS
 WORKSPACE=
-img=$(WORKSPACE)geos.img
 MAKE=$(WORKSPACE)make
+STDOUT= &>> $(WORKSPACE)makeout.txt
+GCCOUT= -w >> $(WORKSPACE)makeout.txt
+MAKEOUT= --no-print-directory
 
 debug:
-	$(MAKE) all KERNEL_REGFIX="-ffixed-r14 -ffixed-r15" KERNEL_DEFINE="-D GEOS_DEBUG"
+	$(info ************ DEBUG BUILD ************)
+	@$(MAKE) all KERNEL_DEFINE="-D GEOS_DEBUG" $(MAKEOUT)
 
 release:
-	$(MAKE) all KERNEL_REGFIX="" KERNEL_DEFINE="-D GEOS_RELEASE"
+	$(info ************ RELEASE BUILD ************)
+	@$(MAKE) all KERNEL_DEFINE="-D GEOS_RELEASE" $(MAKEOUT)
 
-all: clean buildnum UEFI_compile UEFI_syspart compile updateRootFS createIMG run 
-
-hexdump:
-#	create file offset by 0x7C00 (31744 dd doesent take hex numbers)
-	$(dd) if=/dev/zero 	of=$(img).hexdump.temp conv=notrunc bs=512 	count=125002 	seek=0
-	$(dd) if=$(img) 	of=$(img).hexdump.temp conv=notrunc bs=31744	count=125000 	seek=1
-# 	hexdump the file
-	touch $(img).hexdump
-	hexdump  $(img).hexdump.temp -s 0x7C00 > $(img).hexdump
-#	get rid of temp image
-	rm $(img).hexdump.temp
-
-disassembly:
-	objdump --adjust-vma=0x800000 -D -S build/asm64.o -m i386:x86-64 > asm64.dump
+all: buildnum
+	@python $(WORKSPACE)scripts/dllCompileAll.py $(moduleFolders)
+	@$(MAKE) updateRootFS $(MAKEOUT)
+	@$(MAKE) disk $(MAKEOUT)
+	@$(MAKE) run $(MAKEOUT)
 
 include make/make.dev
 include make/run.mak
 include make/buildnumber.mak
 include make/rootfs.mak
 include make/compile.mak
-include make/img.mak
-include make/UEFI.mak
 include make/disk.mak
 include make/clean.mak
+include make/modules.mak

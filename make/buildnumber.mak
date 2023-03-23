@@ -36,4 +36,4 @@ BUILD_NUMBER_LDFLAGS += --defsym __BUILD_NUMBER=$$(cat $(BUILD_NUMBER_FILE))
 BUILD_NUM_FLAG = -D GEOS_BUILD_NUM=\"$(BUILD_NUM)\"
 
 buildnum:
-	$(WORKSPACE)scripts/builtnum.sh
+	@$(WORKSPACE)scripts/builtnum.sh $(STDOUT)

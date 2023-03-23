@@ -41,6 +41,7 @@
 
 # misc
 *.hexdump
+makeout.txt
 
 # folders
 build/

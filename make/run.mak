@@ -30,23 +30,30 @@
 
 QEMU_DBG=-d in_asm,int,cpu_reset
 QEMU_MISC=-no-reboot -no-shutdown
-QEMU_MEMORY=512M
-QEMU_CORES=1
-QEMU_MACHINE=q35
+QEMU_MEMORY=-m 512M
+QEMU_CORES=-smp 1
+QEMU_MACHINE=-machine q35
+QEMU_CPU=-cpu qemu64
 QEMU_DRIVE=-drive format=raw,file=$(img)
 QEMU_LOG=/GEOS_LOG/qemu.log
 QEMU_FIRMWARE=-bios /usr/share/edk2-ovmf/x64/OVMF.fd
 
 run_FIRMWARE:
-	qemu-system-x86_64 -machine $(QEMU_MACHINE) $(QEMU_MISC) $(QEMU_DBG) $(QEMU_DRIVE) -m $(QEMU_MEMORY) $(QEMU_FIRMWARE) -smp $(QEMU_CORES) 2> $(QEMU_LOG)
+	$(info $(QEMU_MEMORY))
+	$(info $(QEMU_CORES))
+	$(info $(QEMU_MACHINE))
+	$(info $(QEMU_CPU))
+	$(info $(QEMU_DRIVE))
+	$(info misc options: $(QEMU_MISC))
+	$(info running virtual machine...)
+	qemu-system-x86_64 $(QEMU_MACHINE) $(QEMU_MISC) $(QEMU_CPU) $(QEMU_DBG) $(QEMU_DRIVE) $(QEMU_MEMORY) $(QEMU_FIRMWARE) $(QEMU_CORES) 2> $(QEMU_LOG)
 
-run:
-ifeq ($(firmware),SEABIOS)
-	$(MAKE) run_FIRMWARE QEMU_FIRMWARE=""
-else ifeq ($(firmware),BOCHS)
-	$(MAKE) run_FIRMWARE QEMU_FIRMWARE="-bios ~/BIOS/bochs/bios.bin"
-else ifeq ($(firmware),UEFI)
-	$(MAKE) run_FIRMWARE QEMU_FIRMWARE="-bios /usr/share/edk2-ovmf/x64/OVMF.fd"
-else
-	@error invalid firmware "$(firmware)"
-endif
+softprint:
+	$(info ************ software ************)
+	@stat -c 'UEFI bootstrap: %y' $(WORKSPACE)mnt/fs0/EFI/BOOT/BOOTX64.EFI
+#	@stat -c 'Kernel: %y' $(WORKSPACE)mnt/fs1/sys/KERNEL.dll
+
+run: softprint
+	$(info )
+	$(info ************ VIRTUAL MACHINE ************)
+	@$(MAKE) run_FIRMWARE QEMU_FIRMWARE="-bios /usr/share/edk2-ovmf/x64/OVMF.fd" QEMU_DRIVE="-drive file=$(WORKSPACE)DISK.vhd"

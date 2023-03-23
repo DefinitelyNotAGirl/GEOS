@@ -38,7 +38,7 @@ LD_FLAGS = -nostdlib -n
 LD_FLAGS += $(BUILD_NUMBER_LDFLAGS)
 
 #c options
-C_NOWARN=-Wno-multichar -Wno-unused-variable -Wno-literal-suffix
+C_NOWARN=-Wno-multichar -Wno-unused-variable
 C_FLAGS=-c -nostdlib -Wall -ffreestanding -fno-stack-protector -I"./stdlibc/" -ffixed-r15 $(C_NOWARN)
 
 #c++ options
@@ -61,16 +61,19 @@ KERNEL_DEFINE=
 KERNEL_REGFIX=
 
 compile_boot:
-	nasm -f bin $(SRC)/boot.asm -o $(OUT_BOOT)
+	$(info compiling boot loader...)
+	@nasm -f bin $(SRC)/boot.asm -o $(OUT_BOOT) $(STDOUT)
 
 compile_32:
-	nasm -f elf32 $(SRC)/entry32.asm -o $(OUT)/asm32.o
-	$(GCC) $(C_FLAGS) -m32 $(SRC)/code32.c -o $(OUT)/c32.o
-	$(LD) -O binary $(OUT)/asm32.o $(OUT)/c32.o -o $(OUT_32) $(LD_FLAGS) -T $(WORKSPACE)link32.ld
+	$(info compiling entry32 code...)
+	@nasm -f elf32 $(SRC)/entry32.asm -o $(OUT)/asm32.o $(STDOUT)
+	@$(GCC) $(C_FLAGS) -m32 $(SRC)/code32.c -o $(OUT)/c32.o $(GCCOUT)
+	@$(LD) -O binary $(OUT)/asm32.o $(OUT)/c32.o -o $(OUT_32) $(LD_FLAGS) -T $(WORKSPACE)link32.ld $(STDOUT)
 
 compile_64:
-	nasm -f elf64 $(SRC)/GEOS/asm/asm_main.asm -o $(OUT)/asm64.o
-	$(CPP) $(CPP_FLAGS) $(KERNEL_DEFINE) $(KERNEL_REGFIX) $(SRC)/GEOS/main.cpp -o $(OUT)/c64.o
-	$(LD) -O binary $(OUT)/asm64.o $(OUT)/c64.o -o $(OUT_64) $(LD_FLAGS) -T $(WORKSPACE)link64.ld
+	$(info compiling kernel...)
+	@nasm -f elf64 $(SRC)/GEOS/asm/asm_main.asm -o $(OUT)/asm64.o $(STDOUT)
+	@$(CPP) $(CPP_FLAGS) $(KERNEL_DEFINE) $(KERNEL_REGFIX) $(SRC)/GEOS/main.cpp -o $(OUT)/c64.o $(GCCOUT)
+	@$(LD) -O binary $(OUT)/asm64.o $(OUT)/c64.o -o $(OUT_64) $(LD_FLAGS) -T $(WORKSPACE)link64.ld $(STDOUT)
 
 compile: compile_boot compile_32 compile_64

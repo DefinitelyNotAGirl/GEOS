@@ -29,26 +29,20 @@
 #
 
 fsroot=$(WORKSPACE)GEOS_DISK_ROOT/GFS0MSP
-updateRootFS: fillRootFS copyRootFS
+updateRootFS: fillRootFS
 
 fillRootFS:
-	cp -rf stdlibc/* 	$(fsroot)/sys/inc
-	cp -rf stdlibc++/* 	$(fsroot)/sys/inc
-	cp -rf src/* 		$(fsroot)/geos/src_backup
-
-copyRootFS:
-	cp -rf $(fsroot)/* $(MNT_1)
+	@cp -rf $(WORKSPACE)stdlibc/* 	$(fsroot)/sys/inc $(STDOUT)
+	@cp -rf $(WORKSPACE)stdlibc++/* $(fsroot)/sys/inc $(STDOUT)
 
 wipeRootFS:
-	rm -r $(fsroot)
+	@-rm -r $(fsroot) $(STDOUT)
 
 structRootFS:
-	mkdir $(fsroot)
-	mkdir $(fsroot)/boot
-	mkdir $(fsroot)/geos
-	mkdir $(fsroot)/geos/src
-	mkdir $(fsroot)/geos/src_backup
-	mkdir $(fsroot)/sys
-	mkdir $(fsroot)/sys/inc
+	@mkdir $(fsroot) 			$(STDOUT)
+	@mkdir $(fsroot)/boot 		$(STDOUT)
+	@mkdir $(fsroot)/sys 		$(STDOUT)
+	@mkdir $(fsroot)/sys/inc 	$(STDOUT)
+	@mkdir $(fsroot)/sys/dll 	$(STDOUT)
 
-mkRootFS: wipeRootFS structRootFS fillRootFS copyRootFS
+mkRootFS: wipeRootFS structRootFS fillRootFS

@@ -68,7 +68,11 @@
         "streambuf": "cpp",
         "thread": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "stdint": "c",
+        "litop": "c",
+        "bootinfo": "cpp",
+        "bits": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "psi-header.config": {
@@ -123,6 +127,14 @@
                 "#pragma once",
                 "#include \"../master.h\"\n"
             ]
+        },
+        {
+            "language": ".ini",
+            "begin": "#",
+            "prefix": "# ",
+            "end": "#",
+            "blankLinesAfter": 0,
+            "afterHeader": []
         },
         {
             "language": ".cpp",

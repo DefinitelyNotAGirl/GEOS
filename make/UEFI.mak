@@ -29,8 +29,12 @@
 #
 
 UEFI_compile:
-	$(GCC) -I$(WORKSPACE)extern/gnu-efi/inc -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $(SRC)UEFI/main.c -o $(WORKSPACE)$(OUT)/UEFI_main.o
-	$(LD) -shared -Bsymbolic -L$(WORKSPACE)extern/gnu-efi/lib -T$(WORKSPACE)extern/gnu-efi/elf_x86_64_efi.lds $(WORKSPACE)extern/gnu-efi/lib/crt0-efi-x86_64.o $(WORKSPACE)$(OUT)/UEFI_main.o -o $(WORKSPACE)$(OUT)/UEFI.so -lgnuefi -lefi
-	objcopy -j .text -j .sdata -j .data -j .dynamic -j .dynsym  -j .rel -j .rela -j .rel.* -j .rela.* -j .reloc --target efi-app-x86_64 --subsystem=10 $(WORKSPACE)$(OUT)/main.so $(WORKSPACE)$(BIN)/main.efi
+	@python scripts/UEFIsizeFlags.py
 
-UEFI_syspart:
+UEFI_SIZE_FLAG = 
+UEFI_compile_2:
+	$(info compiling UEFI application...)
+#	$(GCC) $(UEFI_SIZE_FLAG) -I$(WORKSPACE)extern/gnu-efi/inc -fshort-wchar -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -c $(SRC)/UEFI/main.c -o $(WORKSPACE)$(OUT)/UEFI_main.o $(GCCOUT)
+	$(GCC) $(UEFI_SIZE_FLAG) -I$(WORKSPACE)extern/gnu-efi/inc -fshort-wchar -fpic -ffreestanding -fno-stack-protector -fno-stack-check -fshort-wchar -mno-red-zone -maccumulate-outgoing-args -S -fverbose-asm $(SRC)/UEFI/main.c -o uefi.asm
+	@$(LD) -shared -Bsymbolic -L$(WORKSPACE)extern/gnu-efi/lib -T$(WORKSPACE)extern/gnu-efi/elf_x86_64_efi.lds $(WORKSPACE)extern/gnu-efi/lib/crt0-efi-x86_64.o $(WORKSPACE)$(OUT)/UEFI_main.o -o $(WORKSPACE)$(OUT)/UEFI.so -lgnuefi -lefi $(STDOUT)
+	@objcopy -j .text -j .sdata -j .data -j .dynamic -j .dynsym  -j .rel -j .rela -j .rel.* -j .rela.* -j .reloc --target efi-app-x86_64 --subsystem=10 $(WORKSPACE)$(OUT)/UEFI.so $(WORKSPACE)$(BIN)/main.efi $(STDOUT)

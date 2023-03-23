@@ -29,13 +29,16 @@
 #
 
 clean_code:
-	-rm -r $(WORKSPACE)build
-	mkdir $(WORKSPACE)build
+	@find ./modules/ -type f \( -iname \*.elf64 -o -iname \*.d -o -iname \*.o \) -delete
 
 clean_img:
-	-rm $(WORKSPACE)*.img
-	-rm $(WORKSPACE)*.iso
+	@-rm $(WORKSPACE)*.img $(STDOUT)
+	@-rm $(WORKSPACE)*.iso $(STDOUT)
 
-clean: clean_code clean_img
-	-rm $(WORKSPACE)*.dump
-	-rm $(WORKSPACE)*.hexdump
+clean_misc:
+	$(info cleaning...)
+	@-rm $(WORKSPACE)makeout.txt
+
+clean: clean_misc clean_code clean_img
+	@-rm $(WORKSPACE)*.dump $(STDOUT)
+	@-rm $(WORKSPACE)*.hexdump $(STDOUT)
