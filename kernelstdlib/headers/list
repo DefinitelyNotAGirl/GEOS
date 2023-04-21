@@ -1,8 +1,8 @@
 /**
- * Created Date: Saturday February 18th 2023
+ * Created Date: Friday April 14th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday March 8th 2023 10:52:20 pm
+ * Last Modified: Friday April 14th 2023 1:52:28 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -29,4 +29,40 @@
  */
 #pragma once
 
-extern "C" uint64_t init();
+namespace std
+{
+    template<typename T>
+    class list
+    {
+    protected:
+        uint64_t size;
+        T* data;
+
+    public:
+
+        list(list<T> obj);
+        list();
+
+        T& operator[](uint64_t index);
+        void operator<<(T& obj);
+        bool operator==(T& obj);
+
+        void push_back(T& obj);
+        void push_front(T& obj);
+
+        void pop_back();
+        void pop_front();
+
+        T& front();
+        T& back();
+
+        uint64_t length();
+
+        void clear();
+
+        //iterator functions
+        T* begin();
+        T* end();
+    };
+}
+

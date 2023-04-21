@@ -29,25 +29,31 @@
 #
 
 GPP=/git/GEOS_CROSSCOMPILER/bin/x86_64-elf-g++
+AS=/git/GEOS_CROSSCOMPILER/bin/x86_64-elf-as
 LD=/git/GEOS_CROSSCOMPILER/bin/x86_64-elf-ld
 
 OPT=-O0
-DEPFLAGS=-MP -MD
+DEPFLAGS_GPP=-MP -MD
+DEPFLAGS_ASM=-M -MD
 
 LIBS=$(wildcard ../../lib/*.a)
 LIB_FLAGS=$(foreach D,$(LIBS),-L:$(D))
 LD_ARGS=-T link.ld $(LDMISC)
 NOWARN=-Wno-literal-suffix
-GPP_ARGS=$(GPPMISC) $(NOWARN) $(OPT) $(DEPFLAGS) $(foreach D,$(INCDIRS),-I$(D)) -nostdlib -ffreestanding -fno-stack-protector
+GPP_ARGS=$(GPPMISC) $(NOWARN) $(OPT) $(DEPFLAGS_GPP) $(foreach D,$(INCDIRS),-I$(D)) -nostdlib -ffreestanding -fno-stack-protector
+AS_ARGS=$(DEPFLAGS_ASM)
 
-SOURCE=$(wildcard src/*.cpp)
-OBJECTS=$(patsubst src/%.cpp,bin/%.o,$(SOURCE))
+SOURCE_CPP=$(wildcard src/*.cpp)
+SOURCE_ASM=$(wildcard src/*.s)
+OBJECTS_CPP=$(patsubst src/%.cpp,bin/%.o,$(SOURCE_CPP))
+OBJECTS_ASM=$(patsubst src/%.s,bin/%.o,$(SOURCE_ASM))
 MISCOBJ=../../lib/micro.o
-DEPFILES=$(patsubst src/%.cpp,bin/%.d,$(SOURCE))
+DEPFILES_CPP=$(patsubst src/%.cpp,bin/%.d,$(SOURCE_CPP))
+DEPFILES_ASM=$(patsubst src/%.s,bin/%.d,$(SOURCE_ASM))
 
 all: $(BINARY)
 
-$(BINARY): $(OBJECTS)
+$(BINARY): $(OBJECTS_CPP) $(OBJECTS_ASM)
 	$(LD) $(LD_ARGS) -o $@ $^ $(MISCOBJ)
 	$(info [BUILD] compiled module: $(shell basename $(CURDIR)))
 	@python ../../scripts/placeMod.py ../ ../../GEOS_DISK_ROOT $(shell basename $(CURDIR))
@@ -56,8 +62,11 @@ $(BINARY): $(OBJECTS)
 bin/%.o: src/%.cpp
 	$(GPP) $(GPP_ARGS) -c -o $@ $<
 
+bin/%.o: src/%.s
+	$(AS) $(AS_ARGS) -c -o $@ $<
+
 # include dependencies
--include $(DEPFILES)
+-include $(DEPFILES_CPP) $(DEPFILES_ASM)
 
 clean:
-	@-rm $(OBJECTS) $(DEPFILES) $(BINARY)
+	@-rm $(DEPFILES_CPP) $(DEPFILES_ASM) $(OBJECTS_CPP) $(OBJECTS_ASM) $(BINARY)

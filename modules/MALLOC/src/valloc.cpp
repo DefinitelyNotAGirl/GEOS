@@ -27,13 +27,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
+#include <stdint>
+#include <litop>
 
 #include "../headers/MALLOC.h"
 #include "../headers/mmap.h"
-
-#include <stdint>
-#include <litop>
 
 extern "C" void allocPage(malloc_type type,malloc_priv priv,uint64_t vaddr,uint64_t procID)
 {

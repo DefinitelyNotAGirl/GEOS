@@ -1,8 +1,8 @@
 /**
- * Created Date: Saturday February 18th 2023
+ * Created Date: Tuesday April 11th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday March 8th 2023 10:52:20 pm
+ * Last Modified: Tuesday April 11th 2023 5:22:06 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,6 +27,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
+#include <OBJ.h>
 
-extern "C" uint64_t init();
+uint64_t funcGet(uint64_t module,uint64_t func)
+{
+    
+    return 0;
+}

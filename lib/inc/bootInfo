@@ -29,6 +29,9 @@
  */
 #pragma once
 
+#include <attr>
+#include <stdint>
+
 struct PACKED __ACPITABLES__
 {
     ptr64 MADT;
@@ -68,6 +71,7 @@ struct PACKED __bootInfo__
 
     //misc
     uint64_t VirtualMemoryMAX;
+    uint64_t funcGet;
     uint8_t ACPI_REVISION;
     __ACPITABLES__ ACPIT;
 };

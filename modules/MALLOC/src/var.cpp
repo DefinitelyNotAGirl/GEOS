@@ -1,8 +1,8 @@
 /**
- * Created Date: Saturday February 18th 2023
+ * Created Date: Friday March 24th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday March 8th 2023 10:52:20 pm
+ * Last Modified: Friday March 24th 2023 6:20:47 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,6 +27,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-extern "C" uint64_t init();
+#include <bootInfo>
+#include "../headers/mmap.h"
+
+mmapEntry* mmap;
+__bootInfo__* bootInfo = (__bootInfo__*)0x600000;
+

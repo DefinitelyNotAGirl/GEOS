@@ -1,8 +1,8 @@
 /**
- * Created Date: Saturday February 18th 2023
+ * Created Date: Sunday April 16th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday March 8th 2023 10:52:20 pm
+ * Last Modified: Sunday April 16th 2023 7:23:41 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -29,4 +29,31 @@
  */
 #pragma once
 
-extern "C" uint64_t init();
+template<typename T>
+class list
+{
+    T* data;
+    uint64_t size = 100;
+public:
+    list()
+    {
+        this->data = (T*)malloc(this->size*sizeof(T));
+
+        int n = 0;
+        for(int I = 0;I<this->size;I++)
+        {
+            this->data[I] = n;
+            n+=100;
+        }
+    }
+
+    T* begin()
+    {
+        return this->data;
+    }
+
+    T* end()
+    {
+        return this->data+(this->size);
+    }
+};

@@ -31,15 +31,13 @@
 
 #include <bootInfo>
 
-__bootInfo__* bootInfo = 0x600000;//0x600000 is default location for bootInfo struct
-
-mmapEntry* mmap;
+extern __bootInfo__* bootInfo;
 
 class mmapEntry
 {
 public:
     uint64_t physAddr;
-    uint64_t virtAddr;
     uint64_t procID;
 };
 
+extern "C" mmapEntry* mmap;

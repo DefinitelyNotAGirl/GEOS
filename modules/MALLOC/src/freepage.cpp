@@ -27,13 +27,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
+
+#include <stdint>
+#include <litop>
 
 #include "../headers/MALLOC.h"
 #include "../headers/mmap.h"
 
-#include <stdint>
-#include <litop>
+/*
+
+rewritten in __freepage.s
 
 extern "C" uint64_t getFreePageAddr(uint64_t skipPages)
 {
@@ -44,4 +47,5 @@ extern "C" uint64_t getFreePageAddr(uint64_t skipPages)
     }
     return 0;//invalid addr
 }
+*/
 

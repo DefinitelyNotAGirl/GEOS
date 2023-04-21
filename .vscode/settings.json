@@ -72,7 +72,10 @@
         "stdint": "c",
         "litop": "c",
         "bootinfo": "cpp",
-        "bits": "cpp"
+        "bits": "cpp",
+        "sstring": "cpp",
+        "misc": "cpp",
+        "malloc": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "psi-header.config": {

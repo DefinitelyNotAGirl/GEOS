@@ -1,8 +1,8 @@
 /**
- * Created Date: Saturday February 18th 2023
+ * Created Date: Sunday April 16th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday March 8th 2023 10:52:20 pm
+ * Last Modified: Sunday April 16th 2023 7:23:26 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,6 +27,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-extern "C" uint64_t init();
+#include <cstdint>
+#include <iostream>
+#include "list.cpp"
+
+int main()
+{
+    list<uint64_t> List;
+
+    for(uint64_t I : List)
+    {
+        std::cout << I << std::endl;
+    }
+
+    return 0;
+}

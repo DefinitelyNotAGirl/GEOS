@@ -28,21 +28,22 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include "../headers/mmap.h"
-
 #include <stdint>
 #include <litop>
+#include <bootInfo>
+
+#include "../headers/mmap.h"
 
 extern "C" int init()
 {
-    if(bootInfo.mmap_base == 0)
+    if(bootInfo->mmap_base == 0)
         return 101;
-    if(bootInfo.mmap_esize == 0)
+    if(bootInfo->mmap_esize == 0)
         return 102;
-    if(bootInfo.mmap_size == 0)
+    if(bootInfo->mmap_size == 0)
         return 103;
 
-    mmap = bootInfo.mmap_base;
+    mmap = (mmapEntry*)bootInfo->mmap_base;
         
     return 0;
 }

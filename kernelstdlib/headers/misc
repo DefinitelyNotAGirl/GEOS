@@ -1,8 +1,8 @@
-/**
- * Created Date: Saturday February 18th 2023
+/*
+ * Created Date: Sunday April 16th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday March 8th 2023 10:52:20 pm
+ * Last Modified: Sunday April 16th 2023 5:06:51 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,6 +27,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-extern "C" uint64_t init();
+extern "C" void memcpy(uint64_t src,uint64_t dst,uint64_t bytes);
+extern "C" void memzero(uint64_t target,uint64_t bytes);
+extern "C" uint64_t strlen(uint64_t target);

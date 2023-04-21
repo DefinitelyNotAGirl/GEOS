@@ -1,8 +1,8 @@
-/**
- * Created Date: Saturday February 18th 2023
+/*
+ * Created Date: Friday March 24th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday March 8th 2023 10:52:20 pm
+ * Last Modified: Friday March 24th 2023 4:39:14 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,6 +27,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-extern "C" uint64_t init();
+.global getFreePageAddr
+.global delloc_proc
+
+
+.text
+
+getFreePageAddr:
+    movq mmap, %rsi     # write mmap base address to rsi
+    mov $16, %rax       # 16 = size of mmap entry
+    mul %rdi            # rdi = number of pages to be skipped (arg 1)
+                        # multiply rax by rdi
+    add %rax, %rsi      # add rax to rsi
+    mov $16, %rax
+.loop:
+    cmpq $1, 8(%rsi)   # compare procID
+    je .return
+    
+    add %rax, %rsi       # set rsi to next entry
+    jg .loop
+.errret:
+    xor %rax, %rax
+    ret
+.return:
+    mov 8(%rsi), %rax
+    ret
+
+    

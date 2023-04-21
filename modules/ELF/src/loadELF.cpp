@@ -1,8 +1,8 @@
 /**
- * Created Date: Saturday February 18th 2023
+ * Created Date: Friday April 21st 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday March 8th 2023 10:52:20 pm
+ * Last Modified: Friday April 21st 2023 8:19:28 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -28,5 +28,10 @@
  * DEALINGS IN THE SOFTWARE.
  */
 #pragma once
+#include <ELF.h>
 
-extern "C" uint64_t init();
+uint64_t loadELF(std::string file)
+{
+    return 0;
+}
+

@@ -1,6 +1,5 @@
 {
-    "INIT"    :["sys"],
-    "uefiBS"    :["boot"],
+    "INIT"      :["sys"],
     "ext4.fs"   :["sys"],
     "ext3.fs"   :["sys"],
     "ext2.fs"   :["sys"],
@@ -12,5 +11,6 @@
     "IDE"       :["sys"],
     "PCIe"      :["sys"],
     "SATA"      :["sys"],
-    "SWAP"      :["sys"]
+    "SWAP"      :["sys"],
+    "MALLOC"    :["sys"]
 }

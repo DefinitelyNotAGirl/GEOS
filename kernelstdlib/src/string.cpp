@@ -1,8 +1,8 @@
 /**
- * Created Date: Saturday February 18th 2023
+ * Created Date: Sunday April 16th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday March 8th 2023 10:52:20 pm
+ * Last Modified: Sunday April 16th 2023 7:53:06 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -29,4 +29,55 @@
  */
 #pragma once
 
-extern "C" uint64_t init();
+#include <misc>
+#include <string>
+
+namespace std
+{
+    void string::replace(string target, string replacement)
+    {
+        list<string> pieces = this->split(target);
+        this->clear();
+        for(string I : pieces)
+        {
+            for(char II : I)
+                *this << II;
+            for(char II : replacement)
+                *this << II;
+        }
+    }
+
+    void string::split(string delimiter,uint64_t limit = 0)
+    {
+        uint64_t dPOS = 0;
+
+        list<string> result;
+        string working;
+
+        for(char I : *this)
+        {
+            if(I != delimiter[dPOS])
+                working << I;
+            else
+                dPOS++;
+            if(dPOS == delimiter.size())
+            {
+                result << working;
+                working.clear();
+                dPOS = 0;
+            }
+        }
+        if(working.size() > 0)
+            result << working;
+
+        return result;
+    }
+
+    string::string(const char* str)
+    {
+        if(this->size != 0)
+            this->clear();
+        for(uint64_t I = 0;I<strlen(str))
+            *this << str[I];
+    }
+}

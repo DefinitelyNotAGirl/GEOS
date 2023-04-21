@@ -29,11 +29,14 @@
  */
 #pragma once
 
-#define PROC_ID_NONE   = 0x0000000000000000;
-#define PROC_ID_FIRM   = 0x0000000000000001;
-#define PROC_ID_MMIO   = 0x0000000000000002;
-#define PROC_ID_KERNEL = 0x0000000000000003;
-#define PROC_ID_GSHARE = 0x0000000000000004;
+#include <stdint>
+
+#define PROC_ID_MAPEND  0x0000000000000000;
+#define PROC_ID_NONE    0x0000000000000001;
+#define PROC_ID_FIRM    0x0000000000000002;
+#define PROC_ID_MMIO    0x0000000000000003;
+#define PROC_ID_KERNEL  0x0000000000000004;
+#define PROC_ID_GSHARE  0x0000000000000005;
 
 enum class malloc_type
 {
@@ -46,4 +49,6 @@ enum class malloc_priv
 };
 
 extern "C" int init();
-extern "C" uint64_t getFreePageAddr();//return 0 is invalid
+extern "C" uint64_t getFreePageAddr(uint64_t skip);//return 0 is invalid
+extern "C" void delloc(uint64_t procID);
+extern void deallocatePage(uint64_t physAddr, uint64_t procID);

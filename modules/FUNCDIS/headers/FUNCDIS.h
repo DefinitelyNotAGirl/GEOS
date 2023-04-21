@@ -2,7 +2,7 @@
  * Created Date: Saturday February 18th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday March 8th 2023 10:52:20 pm
+ * Last Modified: Tuesday April 11th 2023 4:57:56 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -28,5 +28,8 @@
  * DEALINGS IN THE SOFTWARE.
  */
 #pragma once
+#include <sstring>
 
-extern "C" uint64_t init();
+uint64_t funcReg(uint64_t module,uint64_t func,uint64_t addr);
+uint64_t funcGet(uint64_t module,uint64_t func);
+extern "C" int init();

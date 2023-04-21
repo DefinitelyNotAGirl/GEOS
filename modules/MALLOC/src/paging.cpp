@@ -27,8 +27,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
-
+#include <stdint>
 #include <bits>
 #include <micro>
 
@@ -84,7 +83,68 @@ void writePDE(
     write64(entry_addr,entry);
 }
 
-void writePDPE()
+void writePDPE(
+        uint64_t PD_ADDR,//page directory address
+        uint64_t entry_addr,
+        //flags
+        uint8_t present,
+        uint8_t readwrite, 
+        uint8_t supervisoronly,
+        uint8_t pagewritetrough,
+        uint8_t pagecachedisable,
+        uint8_t PageSize,
+        uint8_t global,
+        uint8_t executable)
 {
+    uint64_t entry = PD_ADDR;
+
+    SCBIT_00(entry,present);
+    SCBIT_01(entry,readwrite);
+    SCBIT_02(entry,!supervisoronly);
+    SCBIT_03(entry,pagewritetrough);
+    SCBIT_04(entry,pagecachedisable);
+    SCBIT_07(entry,PageSize);
+    SCBIT_08(entry,global);
+    SCBIT_63(entry,!executable);
+
+    //clear ignored bits
+    CLEARBIT_06(entry);
+    CLEARBIT_07(entry);
+    CLEARBIT_08(entry);
+
+    write64(entry_addr,entry);
 }
 
+void writePML4E(
+        uint64_t PDP_ADDR,//page directory address
+        uint64_t entry_addr,
+        //flags
+        uint8_t present,
+        uint8_t readwrite, 
+        uint8_t supervisoronly,
+        uint8_t pagewritetrough,
+        uint8_t pagecachedisable,
+        uint8_t PageSize,
+        uint8_t global,
+        uint8_t executable)
+{
+    uint64_t entry = PDP_ADDR;
+    
+    SCBIT_00(entry,present);
+    SCBIT_01(entry,readwrite);
+    SCBIT_02(entry,!supervisoronly);
+    SCBIT_03(entry,pagewritetrough);
+    SCBIT_04(entry,pagecachedisable);
+    SCBIT_07(entry,PageSize);
+    SCBIT_08(entry,global);
+    SCBIT_63(entry,!executable);
+
+    //clear ignored bits
+    CLEARBIT_06(entry);
+
+    //clear reserved bits
+    CLEARBIT_07(entry);
+    CLEARBIT_08(entry);
+
+    write64(entry_addr,entry);
+}
