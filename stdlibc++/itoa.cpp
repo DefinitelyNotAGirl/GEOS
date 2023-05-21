@@ -7,7 +7,7 @@
 #include "stdint.h"
 namespace std
 {
-    char* itoa(int64_t value, char* result, int base) 
+    char* itoa(i64 value, char* result, int base) 
     {
         // check that the base is valid
         if (base < 2 || base > 36) { *result = '\0'; return result; }

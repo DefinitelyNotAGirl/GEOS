@@ -1,9 +1,5 @@
 /**
- * Created Date: Saturday February 18th 2023
  * Author: DefinitelyNotAGirl@github
- * -----
- * Last Modified: Tuesday April 11th 2023 4:57:56 am
- * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
  * 
@@ -27,12 +23,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#include <sstring>
-#include <FUNCTIONS>
+#include <FUNCDIS.h>
 
 extern "C" int init()
 {
-    //module 0 = Kernel
-    funcReg(FD_MODULE_KERNEL,FD_FUNCTION_FuncReg,(uint64_t)&funcReg);
-    return 0;
+	return 0;
 }

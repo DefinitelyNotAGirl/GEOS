@@ -1,9 +1,5 @@
 /**
- * Created Date: Saturday February 18th 2023
  * Author: DefinitelyNotAGirl@github
- * -----
- * Last Modified: Thursday March 9th 2023 9:43:55 pm
- * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
  * 
@@ -27,8 +23,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+#include <INIT.h>
 
 extern "C" int init()
 {
-    return 0;
+	return 0;
 }

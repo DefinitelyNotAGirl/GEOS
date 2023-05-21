@@ -42,6 +42,16 @@
 # misc
 *.hexdump
 makeout.txt
+drawingboard.txt
+make/modules.mak
+PINFO.txt
+drawingboard.txt
+
+# util executables in root directory
+g++-12
+gcc-12
+ld
+as
 
 # folders
 build/

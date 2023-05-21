@@ -75,7 +75,10 @@
         "bits": "cpp",
         "sstring": "cpp",
         "misc": "cpp",
-        "malloc": "cpp"
+        "malloc": "cpp",
+        "functions": "cpp",
+        "any": "cpp",
+        "macros": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "psi-header.config": {
@@ -200,7 +203,7 @@
                 "Last Modified: <<filecreated('dddd MMMM Do YYYY h:mm:ss a')>>",
                 "Modified By: <<author>> (<<authoremail>>)",
                 "-----",
-                "Copyright (c) <<yeartoyear(fc!P,now)>> <<company>>",
+                "Copyright (c) <<yeartoyear(fc!P,now)>> <<author>>",
                 "",
                 "<<licensetext>>"
             ],
