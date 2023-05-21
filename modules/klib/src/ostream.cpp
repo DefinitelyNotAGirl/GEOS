@@ -1,8 +1,8 @@
 /**
- * Created Date: Wednesday April 26th 2023
+ * Created Date: Sunday May 21st 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday April 26th 2023 3:16:55 am
+ * Last Modified: Sunday May 21st 2023 10:40:28 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -28,27 +28,27 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include <exception>
-#include <stdint>
+#include <iostream>
 #include <misc>
-#include <malloc>
 
-namespace klib::exception
+namespace klib
 {
-    u64 INDEX_OUT_OF_BOUNDS()
+    void ostream::putchar(char c)
     {
-        FUNCTON_NOT_IMPLEMENTED();
-        return 0;
+        this->putChar(c);
     }
 
-    u64 FUNCTON_NOT_IMPLEMENTED()
+    void ostream::putChar(char* str)
     {
-        return 0;
-    }
-
-    u64 ANY_MISSING_CONVERSION(anyTypeId from, anyTypeId to)
-    {
-        FUNCTON_NOT_IMPLEMENTED();
-        return 0;
+        if(this->putStrAvailable)
+        {
+            this->putStr(str);
+        }
+        else
+        {
+            u64 l = strlen(str);
+            for(u64 i = 0; i < l; i++)
+                this->putChar(str[i]);
+        }
     }
 }

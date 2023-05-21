@@ -29,9 +29,11 @@
  */
 
 #include <stdint>
+#include <any>
 
 namespace klib::exception
 {
     u64 INDEX_OUT_OF_BOUNDS();
     u64 FUNCTON_NOT_IMPLEMENTED();
+    u64 ANY_MISSING_CONVERSION(anyTypeId from, anyTypeId to);
 }

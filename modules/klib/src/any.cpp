@@ -76,7 +76,7 @@ namespace klib
     //
     //misc
     //
-    anyTypeId any::getType()
+    anyTypeId any::getType() const
     {
         return this->typeId;
     }
@@ -364,7 +364,7 @@ namespace klib
     //
     // float32
     //
-    any::operator f32()
+    any::operator f32() const
     {
         if(KLIB_ANY_ISUINT(this->typeId))
             return f32(this->unsignedInt);
@@ -385,7 +385,7 @@ namespace klib
     //
     // float64
     //
-    any::operator f64()
+    any::operator f64() const
     {
         if(KLIB_ANY_ISUINT(this->typeId))
             return f64(this->unsignedInt);
@@ -419,5 +419,7 @@ namespace klib
 
         if(this->typeId == anyTypeId::STRING)
             return this->stringValue;
+
+        
     }
 }

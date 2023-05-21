@@ -1,8 +1,8 @@
-/**
- * Created Date: Wednesday April 26th 2023
+/*
+ * Created Date: Sunday May 21st 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday April 26th 2023 3:16:55 am
+ * Last Modified: Sunday May 21st 2023 10:22:47 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -28,27 +28,34 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include <exception>
-#include <stdint>
-#include <misc>
-#include <malloc>
+#include <iostream>
+#include <string>
 
-namespace klib::exception
+namespace klib
 {
-    u64 INDEX_OUT_OF_BOUNDS()
+    class ostream_base
     {
-        FUNCTON_NOT_IMPLEMENTED();
-        return 0;
-    }
+    protected:
+        bool putStrAvailable = false;
 
-    u64 FUNCTON_NOT_IMPLEMENTED()
-    {
-        return 0;
-    }
+    public:
+        bool hasPutStr() const;
 
-    u64 ANY_MISSING_CONVERSION(anyTypeId from, anyTypeId to)
+        void putchar(char c);
+        void putstr(char* str);
+    };
+    
+    class ostream : public ostream_base
     {
-        FUNCTON_NOT_IMPLEMENTED();
-        return 0;
-    }
+    public:
+        void(*putStr)(char* str);
+        void(*putChar)(char c);
+    };
+
+    ostream_base& operator<<(ostream_base& out, char c);
+    ostream_base& operator<<(ostream_base& out, char* str);
+    ostream_base& operator<<(ostream_base& out, const char* str);
+    ostream_base& operator<<(ostream_base& out, string str);
+    ostream_base& operator<<(ostream_base& out, u64 x);
+    ostream_base& operator<<(ostream_base& out, i64 x);
 }

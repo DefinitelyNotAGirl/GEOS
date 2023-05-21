@@ -89,14 +89,14 @@ namespace klib
         operator i16() const;
         operator i8() const;
         //float
-        operator float32() const;
-        operator float64() const;
+        operator f32() const;
+        operator f64() const;
         //misc
         operator string() const;
 
         //
         // misc
         //
-        anyTypeId getType();
+        anyTypeId getType() const;
     };
 }
