@@ -80,8 +80,6 @@ for any languages i didnt mention, just assume they wont be supported.
     For reference, at the time of writing this i am developing and testing on my AMD FX8350 straight out of 2012 (which, considering it's age is one beast of a CPU btw) and this is propably about the oldest CPU that will actually run this Operating System.
     
 # **Credits**
-## **bzt (bztsrc@gitlab) - [BOOTBOOT](https://gitlab.com/bztsrc/bootboot)**
-...for creating BOOTBOOT, the bootloader used by GEOS, which not only spares me from having to go through the pain of making a 64-bit CPU execute 64 bit instructions, but on top of that is also multiboot compliant therefore making GEOS mutliboot compatible
 
 # **Rant**
 ## **Nvidia**
