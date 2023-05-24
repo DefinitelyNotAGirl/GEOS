@@ -46,12 +46,15 @@ drawingboard.txt
 make/modules.mak
 PINFO.txt
 drawingboard.txt
+.DS_Store
 
 # util executables in root directory
 g++-12
 gcc-12
 ld
 as
+configure
+createModule
 
 # folders
 build/
@@ -59,3 +62,4 @@ bin/
 geosfsroot/
 GEOS_DISK_ROOT/
 mnt/
+make/

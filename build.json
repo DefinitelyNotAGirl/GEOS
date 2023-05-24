@@ -1,6 +1,7 @@
 {
     "makedir" : "MAKE/",
     "PDMO" : "../../",
+    "incdir" : "inc/",
     "srctypes" : {
         "asm" : ["asm","s"],
         "cpp" : ["cpp","cxx"],
@@ -57,6 +58,14 @@
             "opath" : "build/klib/",
             "spath" : "modules/klib/",
             "lds" : "LDS/klib.ld",
+            "inc" : [],
+            "args" : []
+        },
+        "MALLOC" : {
+            "output" : "out/MALLOC.elf64",
+            "opath" : "build/MALLOC/",
+            "spath" : "modules/MALLOC/",
+            "lds" : "LDS/MALLOC.ld",
             "inc" : [],
             "args" : []
         }
