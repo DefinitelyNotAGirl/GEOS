@@ -2,7 +2,7 @@
  * Created Date: Saturday February 18th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Tuesday April 25th 2023 10:46:08 am
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -39,6 +39,7 @@
 #define PROC_ID_MMIO    0x0000000000000003;
 #define PROC_ID_KERNEL  0x0000000000000004;
 #define PROC_ID_GSHARE  0x0000000000000005;
+#define PROC_ID_DAMAGED 0x0000000000000006;
 
 #define PHYS_MMAP_BASE  0x0000000001800000; //start of physical memory map
 

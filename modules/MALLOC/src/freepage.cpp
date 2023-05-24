@@ -1,8 +1,8 @@
-/*
- * Created Date: Wednesday April 26th 2023
+/**
+ * Created Date: Wednesday May 24th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday May 24th 2023 7:20:27 am
+ * Last Modified: Wednesday May 24th 2023 10:02:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,15 +27,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
+#include <MALLOC>
 #include <stdint>
 
-//funcdis
-u64 (*funcReg)(u64 module,u64 func,u64 addr);
-void*(*funcGet)(u64 module,u64 func);
+u64 getFreeVirtPageAddr()
+{
+}
 
-//mem
-void*(*__malloc__)(u64 size);
-void(*falloc)(u64 paddr,u64 vaddr);
-int(*memStatus)(u64 paddr);
-void(*__free__)(void* base, u64 size);
+u64 getFreePageAddr(u64 skipPages)
+{
+    u64* mmap = PHYS_MMAP_BASE;
+    while(mmap[0] != PROC_ID_MAPEND)
+    {
+        if(mmap[0] == PROC_ID_NONE)
+            return (mmap-PHYS_MMAP_BASE)*PAGE_SIZE;
+        mmap+=8;
+    }
+    return 0;//invalid addr
+}

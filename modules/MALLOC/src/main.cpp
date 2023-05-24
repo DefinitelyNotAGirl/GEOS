@@ -1,9 +1,5 @@
-/*
- * Created Date: Wednesday April 26th 2023
+/**
  * Author: DefinitelyNotAGirl@github
- * -----
- * Last Modified: Wednesday May 24th 2023 7:20:27 am
- * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
  * 
@@ -27,15 +23,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+#include <MALLOC.h>
 
-#include <stdint>
-
-//funcdis
-u64 (*funcReg)(u64 module,u64 func,u64 addr);
-void*(*funcGet)(u64 module,u64 func);
-
-//mem
-void*(*__malloc__)(u64 size);
-void(*falloc)(u64 paddr,u64 vaddr);
-int(*memStatus)(u64 paddr);
-void(*__free__)(void* base, u64 size);
+extern "C" int init()
+{
+	return 0;
+}
