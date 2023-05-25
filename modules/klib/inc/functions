@@ -2,7 +2,7 @@
  * Created Date: Wednesday April 26th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Sunday May 21st 2023 6:37:06 am
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -32,8 +32,10 @@
 
 //funcdis
 u64 (*funcReg)(u64 module,u64 func,u64 addr);
-void*    (*funcGet)(u64 module,u64 func);
+void*(*funcGet)(u64 module,u64 func);
 
 //mem
-void*(*__malloc__)(u64 size);
-void (*__free__)(void* base, u64 size);
+void*(*malloc)(u64 size);
+void(*falloc)(u64 paddr,u64 vaddr,u64 procID);
+u64(*memStatus)(u64 paddr);
+void(*free)(void* base);

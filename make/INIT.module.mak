@@ -18,15 +18,15 @@ INIT_SOURCE_c_c=$(wildcard modules/INIT/src/*.c)
 INIT_OBJECTS_c_c=$(patsubst modules/INIT/src/%.c,build/INIT/%.o,$(INIT_SOURCE_c_c))
 INIT_DEPFILES_c_c=$(patsubst modules/INIT/src/%.c,build/INIT/%.d,$(INIT_SOURCE_c_c))
 build/INIT/%.o: modules/INIT/src/%.asm
-	gcc-12 -c -o $@ $<
+	x86_64-elf-as -M -MD  -c -o $@ $<
 build/INIT/%.o: modules/INIT/src/%.s
-	gcc-12 -c -o $@ $<
+	x86_64-elf-as -M -MD  -c -o $@ $<
 build/INIT/%.o: modules/INIT/src/%.cpp
-	g++-12 -O0 -nostdlib -ffreestanding -fno-stack-protector -Wno-literal-suffix -Imodules/klib/inc/ -c -o $@ $<
+	x86_64-elf-g++ -O0 -nostdlib -ffreestanding -fno-stack-protector -Wno-literal-suffix -MP -MD -Imodules/klib/inc/ -Iinc/ -Imodules/INIT/inc -march=x86-64 -c -o $@ $<
 build/INIT/%.o: modules/INIT/src/%.cxx
-	g++-12 -O0 -nostdlib -ffreestanding -fno-stack-protector -Wno-literal-suffix -Imodules/klib/inc/ -c -o $@ $<
+	x86_64-elf-g++ -O0 -nostdlib -ffreestanding -fno-stack-protector -Wno-literal-suffix -MP -MD -Imodules/klib/inc/ -Iinc/ -Imodules/INIT/inc -march=x86-64 -c -o $@ $<
 build/INIT/%.o: modules/INIT/src/%.c
-	gcc-12 -Imodules/klib/inc/ -c -o $@ $<
+	x86_64-elf-gcc -Imodules/klib/inc/ -Iinc/ -Imodules/INIT/inc -march=x86-64 -c -o $@ $<
 m-INIT-clean:
 	rm -r build/INIT/*.o
 	rm -r build/INIT/*.d

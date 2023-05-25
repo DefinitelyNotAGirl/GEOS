@@ -6,3 +6,5 @@ include MAKE/modules.mak
 include MAKE/INIT.module.mak
 include MAKE/FUNCDIS.module.mak
 include MAKE/klib.module.mak
+include MAKE/MALLOC.module.mak
+include MAKE/modinclude.mak

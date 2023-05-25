@@ -1,8 +1,8 @@
 /**
- * Created Date: Thursday April 27th 2023
+ * Created Date: Wednesday May 24th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday May 24th 2023 7:20:27 am
+ * Last Modified: Wednesday May 24th 2023 10:07:09 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,9 +27,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
-
-#include "../headers/paging.h"
+#include <paging>
 #include <bits>
 
 namespace paging
@@ -102,12 +100,12 @@ namespace paging
         *e |= addr;  //place new address
     }
 
-    bool PDPE::isDirty()
-    {
-        if(EXPR_GETBIT_06(*e))
-            return true;
-        return false;
-    }
+    //bool PDPE::isDirty()
+    //{
+    //    if(EXPR_GETBIT_06(*e))
+    //        return true;
+    //    return false;
+    //}
 
     bool PDPE::wasAccessed()
     {
@@ -149,12 +147,12 @@ namespace paging
         *e |= addr;  //place new address
     }
 
-    bool PML4E::isDirty()
-    {
-        if(EXPR_GETBIT_06(*e))
-            return true;
-        return false;
-    }
+    //bool PML4E::isDirty()
+    //{
+    //    if(EXPR_GETBIT_06(*e))
+    //        return true;
+    //    return false;
+    //}
 
     bool PML4E::wasAccessed()
     {
@@ -196,12 +194,12 @@ namespace paging
         *e |= addr;  //place new address
     }
 
-    bool PML5E::isDirty()
-    {
-        if(EXPR_GETBIT_06(*e))
-            return true;
-        return false;
-    }
+    //bool PML5E::isDirty()
+    //{
+    //    if(EXPR_GETBIT_06(*e))
+    //        return true;
+    //    return false;
+    //}
 
     bool PML5E::wasAccessed()
     {

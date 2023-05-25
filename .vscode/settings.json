@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "STI": "c",
         "*.java": "java",
         "*.c": "c",
         "*.h": "cpp",
@@ -78,7 +79,11 @@
         "malloc": "cpp",
         "functions": "cpp",
         "any": "cpp",
-        "macros": "cpp"
+        "macros": "cpp",
+        "math": "cpp",
+        "sconv": "cpp",
+        "attr": "cpp",
+        "main": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "psi-header.config": {

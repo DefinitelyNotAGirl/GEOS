@@ -2,7 +2,7 @@
  * Created Date: Friday May 19th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Friday May 19th 2023 7:34:24 pm
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,6 +27,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
 #include <stdint>
 #include <string>
@@ -39,12 +40,12 @@ namespace klib
     #define KLIB_ANY_ISFLOAT(id) id == anyTypeId::FLOAT64 || id == anyTypeId::FLOAT32
     enum class anyTypeId
     {
-        UINT64,UINT32,UINT16,UINT8,INT64,INT32,INT16,INT8,STRING,FLOAT32,FLOAT64,BOOLEAN
+        UINT64,UINT32,UINT16,UINT8,INT64,INT32,INT16,INT8,STRING_UTF8,FLOAT32,FLOAT64,BOOLEAN
     };
 
     class any
     {
-    protected:
+    public:
         anyTypeId typeId;
 
         //data

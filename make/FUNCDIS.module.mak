@@ -18,15 +18,15 @@ FUNCDIS_SOURCE_c_c=$(wildcard modules/FUNCDIS/src/*.c)
 FUNCDIS_OBJECTS_c_c=$(patsubst modules/FUNCDIS/src/%.c,build/FUNCDIS/%.o,$(FUNCDIS_SOURCE_c_c))
 FUNCDIS_DEPFILES_c_c=$(patsubst modules/FUNCDIS/src/%.c,build/FUNCDIS/%.d,$(FUNCDIS_SOURCE_c_c))
 build/FUNCDIS/%.o: modules/FUNCDIS/src/%.asm
-	gcc-12 -c -o $@ $<
+	x86_64-elf-as -M -MD  -c -o $@ $<
 build/FUNCDIS/%.o: modules/FUNCDIS/src/%.s
-	gcc-12 -c -o $@ $<
+	x86_64-elf-as -M -MD  -c -o $@ $<
 build/FUNCDIS/%.o: modules/FUNCDIS/src/%.cpp
-	g++-12 -O0 -nostdlib -ffreestanding -fno-stack-protector -Wno-literal-suffix -Imodules/klib/inc/ -c -o $@ $<
+	x86_64-elf-g++ -O0 -nostdlib -ffreestanding -fno-stack-protector -Wno-literal-suffix -MP -MD -Imodules/klib/inc/ -Iinc/ -Imodules/FUNCDIS/inc -march=x86-64 -c -o $@ $<
 build/FUNCDIS/%.o: modules/FUNCDIS/src/%.cxx
-	g++-12 -O0 -nostdlib -ffreestanding -fno-stack-protector -Wno-literal-suffix -Imodules/klib/inc/ -c -o $@ $<
+	x86_64-elf-g++ -O0 -nostdlib -ffreestanding -fno-stack-protector -Wno-literal-suffix -MP -MD -Imodules/klib/inc/ -Iinc/ -Imodules/FUNCDIS/inc -march=x86-64 -c -o $@ $<
 build/FUNCDIS/%.o: modules/FUNCDIS/src/%.c
-	gcc-12 -Imodules/klib/inc/ -c -o $@ $<
+	x86_64-elf-gcc -Imodules/klib/inc/ -Iinc/ -Imodules/FUNCDIS/inc -march=x86-64 -c -o $@ $<
 m-FUNCDIS-clean:
 	rm -r build/FUNCDIS/*.o
 	rm -r build/FUNCDIS/*.d

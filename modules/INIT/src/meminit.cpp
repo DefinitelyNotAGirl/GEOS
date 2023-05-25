@@ -1,9 +1,9 @@
 /**
- * Created Date: Sunday April 16th 2023
+ * Created Date: Wednesday May 24th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Sunday April 16th 2023 5:19:11 pm
- * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
+ * Last Modified: Wednesday May 24th 2023 9:45:41 am
+ * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
  * 
@@ -27,14 +27,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-
 #include <stdint>
-#include <any>
-#include <attr>
+#include <functions>
+#include <MALLOC>
 
-namespace klib::exception
+#ifndef MEM_KERNEL_BOTTOM_RESERVED
+    #define MEM_KERNEL_BOTTOM_RESERVED 256 //reserve first 256 memory pages by default
+#endif
+
+u64 meminit()
 {
-    void NORETURN INDEX_OUT_OF_BOUNDS();
-    void NORETURN FUNCTON_NOT_IMPLEMENTED();
-    void NORETURN ANY_MISSING_CONVERSION(anyTypeId from, anyTypeId to);
+    //allocate reserved memory
+    for(u64 i = 0; i < MEM_KERNEL_BOTTOM_RESERVED; i++)
+    {
+        if(memStatus(i*PAGE_SIZE) == MEM_STATUS_OK)
+            falloc(i*PAGE_SIZE,i*PAGE_SIZE,PROC_ID_KERNEL);
+    }
+
+    return 0;
 }

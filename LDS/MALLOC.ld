@@ -21,6 +21,22 @@ SECTIONS {
 	bss : {
 		build/MALLOC/*.o (.bss)
 	}
+	. = 0x1C00000;
+	text_klib : {
+		build/klib/*.o (.text)
+	}
+	. = 0x1E00000;
+	data_klib : {
+		build/klib/*.o (.data)
+	}
+	. = 0x2000000;
+	rodata_klib : {
+		build/klib/*.o (.rodata)
+	}
+	. = 0x2200000;
+	bss_klib : {
+		build/klib/*.o (.bss)
+	}
 	/DISCARD/ : {
 		*(.note*)
 		*(.iplt*)

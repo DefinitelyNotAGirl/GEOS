@@ -38,12 +38,25 @@ namespace klib
     {
     private:
     public:
-        string(const char* str);
+        stringUTF8();
+        stringUTF8(const char* str);
+        stringUTF8(const stringUTF8& str);
 
-        void replace(string target, string replacement);
-        list<string> split(string delimiter,u64 limit = 0);
+        stringUTF8(u64 x);
+        stringUTF8(u32 x);
+        stringUTF8(u16 x);
+        stringUTF8(u8 x);
+        stringUTF8(i64 x);
+        stringUTF8(i32 x);
+        stringUTF8(i16 x);
+        stringUTF8(i8 x);
+        stringUTF8(f32 x);
+        stringUTF8(f64 x);
 
-        void operator<<(std::string s);
+        void replace(stringUTF8 target, stringUTF8 replacement);
+        list<stringUTF8> split(stringUTF8 delimiter,u64 limit = 0);
+
+        void operator<<(stringUTF8 s);
         void operator<<(char* s);
         void operator<<(const char* s);
         void operator<<(char c);
@@ -51,6 +64,17 @@ namespace klib
         void operator<<(i64 i);
         void operator<<(f64 d);
         void operator<<(f32 f);
+
+        operator u64() const;
+        operator u32() const;
+        operator u16() const;
+        operator u8() const;
+        operator i64() const;
+        operator i32() const;
+        operator i16() const;
+        operator i8() const;
+        operator f32() const;
+        operator f64() const;
     };
 
     #ifdef KLIB_ENABLE_STRING_UTF16
@@ -60,12 +84,12 @@ namespace klib
         {
         private:
         public:
-            string(const char* str);
+            stringUTF16(const char* str);
 
-            void replace(string target, string replacement);
-            list<string> split(string delimiter,u64 limit = 0);
+            void replace(stringUTF16 target, stringUTF16 replacement);
+            list<string> split(stringUTF16 delimiter,u64 limit = 0);
 
-            void operator<<(std::string s);
+            void operator<<(stringUTF16 s);
             void operator<<(wideChar* s);
             void operator<<(const wideChar* s);
             void operator<<(wideChar c);

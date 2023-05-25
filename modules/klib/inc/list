@@ -29,6 +29,8 @@
  */
 #pragma once
 
+#include <stdint>
+
 namespace klib
 {
     template<typename T>
@@ -40,7 +42,7 @@ namespace klib
 
     public:
 
-        list(list<T> obj);
+        list(list<T>& obj);
         list();
         ~list();
 

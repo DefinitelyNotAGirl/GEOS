@@ -1,9 +1,5 @@
 /**
- * Created Date: Sunday April 16th 2023
  * Author: DefinitelyNotAGirl@github
- * -----
- * Last Modified: Sunday April 16th 2023 5:19:11 pm
- * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
  * 
@@ -27,14 +23,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+#include <MALLOC.h>
 
-#include <stdint>
-#include <any>
-#include <attr>
-
-namespace klib::exception
+extern "C" int init()
 {
-    void NORETURN INDEX_OUT_OF_BOUNDS();
-    void NORETURN FUNCTON_NOT_IMPLEMENTED();
-    void NORETURN ANY_MISSING_CONVERSION(anyTypeId from, anyTypeId to);
+	return 0;
 }

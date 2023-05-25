@@ -1,9 +1,9 @@
-/**
- * Created Date: Sunday April 16th 2023
+/*
+ * Created Date: Wednesday May 24th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Sunday April 16th 2023 5:19:11 pm
- * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
+ * Last Modified: Wednesday May 24th 2023 10:01:07 am
+ * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
  * 
@@ -28,13 +28,23 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include <stdint>
-#include <any>
-#include <attr>
+#define PHYS_MMAP_BASE (u64*)0x0000000001800000 //start of physical memory map
 
-namespace klib::exception
+#include <stdint>
+
+extern "C" int init();
+extern "C" uint64_t getFreePageAddr(uint64_t skip);//return 0 is invalid
+extern "C" void delloc(uint64_t procID);
+extern "C" void* malloc(uint64_t size);
+extern "C" u64 memStatus(u64 paddr);
+extern void deallocatePage(uint64_t physAddr, uint64_t procID);
+
+enum class malloc_type
 {
-    void NORETURN INDEX_OUT_OF_BOUNDS();
-    void NORETURN FUNCTON_NOT_IMPLEMENTED();
-    void NORETURN ANY_MISSING_CONVERSION(anyTypeId from, anyTypeId to);
-}
+    code,data,rodata,stack
+};
+
+enum class malloc_priv
+{
+    kernel,user
+};

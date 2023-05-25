@@ -4,7 +4,7 @@
 # Created Date: Wednesday March 22nd 2023
 # Author: DefinitelyNotAGirl@github
 # -----
-# Last Modified: Tuesday April 25th 2023 10:46:07 am
+# Last Modified: Wednesday May 24th 2023 7:20:27 am
 # Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
 # -----
 # Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -71,6 +71,16 @@ for I in range(0,64):
         print("#define GETBIT_0"+str(I)+"(r,w) "+"w = (r & 0b"+bstr+")")
     else:
         print("#define GETBIT_"+str(I)+"(r,w) "+"w = (r & 0b"+bstr+")")
+        
+#exprgetbit
+print("\n//getbit")
+for I in range(0,64):
+    II=63-I
+    bstr = all0[:II] + "1" + all0[II + 1:]
+    if(I<10):
+        print("#define EXPR_GETBIT_0"+str(I)+"(r) "+"(r & 0b"+bstr+")")
+    else:
+        print("#define EXPR_GETBIT_"+str(I)+"(r) "+"(r & 0b"+bstr+")")
         
 #flipbit
 print("//flipbit")
