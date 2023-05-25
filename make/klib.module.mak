@@ -18,20 +18,20 @@ klib_SOURCE_c_c=$(wildcard modules/klib/src/*.c)
 klib_OBJECTS_c_c=$(patsubst modules/klib/src/%.c,build/klib/%.o,$(klib_SOURCE_c_c))
 klib_DEPFILES_c_c=$(patsubst modules/klib/src/%.c,build/klib/%.d,$(klib_SOURCE_c_c))
 build/klib/%.o: modules/klib/src/%.asm
-	gcc-12 -c -o $@ $<
+	x86_64-elf-as -M -MD  -c -o $@ $<
 build/klib/%.o: modules/klib/src/%.s
-	gcc-12 -c -o $@ $<
+	x86_64-elf-as -M -MD  -c -o $@ $<
 build/klib/%.o: modules/klib/src/%.cpp
-	g++-12 -c -o $@ $<
+	x86_64-elf-g++ -O0 -nostdlib -ffreestanding -fno-stack-protector -Wno-literal-suffix -MP -MD -Imodules/klib/inc/ -Iinc/ -Imodules/klib/inc -march=x86-64 -c -o $@ $<
 build/klib/%.o: modules/klib/src/%.cxx
-	g++-12 -c -o $@ $<
+	x86_64-elf-g++ -O0 -nostdlib -ffreestanding -fno-stack-protector -Wno-literal-suffix -MP -MD -Imodules/klib/inc/ -Iinc/ -Imodules/klib/inc -march=x86-64 -c -o $@ $<
 build/klib/%.o: modules/klib/src/%.c
-	gcc-12 -c -o $@ $<
+	x86_64-elf-gcc -Imodules/klib/inc/ -Iinc/ -Imodules/klib/inc -march=x86-64 -c -o $@ $<
 m-klib-clean:
 	rm -r build/klib/*.o
 	rm -r build/klib/*.d
-m-klib: out/klib.elf64
-out/klib.elf64:  $(klib_OBJECTS_asm_asm) $(klib_OBJECTS_asm_s) $(klib_OBJECTS_cpp_cpp) $(klib_OBJECTS_cpp_cxx) $(klib_OBJECTS_c_c)
+m-klib: out/kernel/klib.elf64
+out/kernel/klib.elf64:  $(klib_OBJECTS_asm_asm) $(klib_OBJECTS_asm_s) $(klib_OBJECTS_cpp_cpp) $(klib_OBJECTS_cpp_cxx) $(klib_OBJECTS_c_c)
 -include $(klib_DEPFILES_asm_asm)
 -include $(klib_DEPFILES_asm_s)
 -include $(klib_DEPFILES_cpp_cpp)

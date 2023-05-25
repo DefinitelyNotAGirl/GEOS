@@ -2,7 +2,7 @@
  * Created Date: Thursday May 18th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Thursday May 18th 2023 6:10:46 pm
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -28,12 +28,6 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include <string>
-
 namespace klib
 {
-    operator u64(string s);
-    operator u32(string s);
-    operator u16(string s);
-    operator u8(string s);
-};
+}

@@ -2,7 +2,7 @@
  * Created Date: Wednesday April 26th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday April 26th 2023 7:54:28 am
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -28,6 +28,8 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
+.intel_syntax noprefix
+
 .global strlen
 
 .text
@@ -35,8 +37,9 @@
 # target = rdi
 strlen:
     xor rax, rax
+    xor rsi, rsi
 .loop:
-    cmp [rdi], $0 # check if current char is 0
+    cmp [rdi], rsi # check if current char is 0
     je .ret
     inc rdi
     inc rax

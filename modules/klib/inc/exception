@@ -30,10 +30,11 @@
 
 #include <stdint>
 #include <any>
+#include <attr>
 
 namespace klib::exception
 {
-    u64 INDEX_OUT_OF_BOUNDS();
-    u64 FUNCTON_NOT_IMPLEMENTED();
-    u64 ANY_MISSING_CONVERSION(anyTypeId from, anyTypeId to);
+    void NORETURN INDEX_OUT_OF_BOUNDS();
+    void NORETURN FUNCTON_NOT_IMPLEMENTED();
+    void NORETURN ANY_MISSING_CONVERSION(anyTypeId from, anyTypeId to);
 }

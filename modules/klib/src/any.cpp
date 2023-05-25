@@ -2,7 +2,7 @@
  * Created Date: Sunday May 21st 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Sunday May 21st 2023 6:37:06 am
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,12 +27,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
-
 #include <any>
 #include <bits>
 #include <math>
 #include <SCONV>
+#include <exception>
 
 namespace klib
 {
@@ -67,10 +66,10 @@ namespace klib
         :floatingPoint(x),typeId(anyTypeId::FLOAT64){}
 
     any::any(bool b)
-        :u64(b),typeId(anyTypeId::BOOLEAN){}
+        :unsignedInt(b),typeId(anyTypeId::BOOLEAN){}
 
     any::any(string s)
-        :stringValue(s),typeId(anyTypeId::STRING){}
+        :stringValue(s),typeId(anyTypeId::STRING_UTF8){}
 
 
     //
@@ -99,7 +98,7 @@ namespace klib
 
         if(this->typeId == anyTypeId::BOOLEAN)
         {
-            if(this->boolValue)
+            if(this->unsignedInt)
                 return 1;
             else
                 return 0;
@@ -110,10 +109,11 @@ namespace klib
             return floor(this->floatingPoint);
         }
 
-        if(this->typeId == anyTypeId::STRING)
+        if(this->typeId == anyTypeId::STRING_UTF8)
         {
             return u64(this->stringValue);
         }
+        exception::ANY_MISSING_CONVERSION(this->typeId,anyTypeId::UINT32);
     }
 
     //
@@ -134,7 +134,7 @@ namespace klib
 
         if(this->typeId == anyTypeId::BOOLEAN)
         {
-            if(this->boolValue)
+            if(this->unsignedInt)
                 return 1;
             else
                 return 0;
@@ -145,10 +145,11 @@ namespace klib
             return floor(this->floatingPoint);
         }
 
-        if(this->typeId == anyTypeId::STRING)
+        if(this->typeId == anyTypeId::STRING_UTF8)
         {
             return u32(this->stringValue);
         }
+        exception::ANY_MISSING_CONVERSION(this->typeId,anyTypeId::UINT32);
     }
 
     //
@@ -169,7 +170,7 @@ namespace klib
 
         if(this->typeId == anyTypeId::BOOLEAN)
         {
-            if(this->boolValue)
+            if(this->unsignedInt)
                 return 1;
             else
                 return 0;
@@ -180,10 +181,11 @@ namespace klib
             return floor(this->floatingPoint);
         }
 
-        if(this->typeId == anyTypeId::STRING)
+        if(this->typeId == anyTypeId::STRING_UTF8)
         {
             return u16(this->stringValue);
         }
+        exception::ANY_MISSING_CONVERSION(this->typeId,anyTypeId::UINT16);
     }
 
     //
@@ -204,7 +206,7 @@ namespace klib
 
         if(this->typeId == anyTypeId::BOOLEAN)
         {
-            if(this->boolValue)
+            if(this->unsignedInt)
                 return 1;
             else
                 return 0;
@@ -215,10 +217,11 @@ namespace klib
             return floor(this->floatingPoint);
         }
 
-        if(this->typeId == anyTypeId::STRING)
+        if(this->typeId == anyTypeId::STRING_UTF8)
         {
             return u8(this->stringValue);
         }
+        exception::ANY_MISSING_CONVERSION(this->typeId,anyTypeId::UINT8);
     }
 
     //
@@ -239,7 +242,7 @@ namespace klib
 
         if(this->typeId == anyTypeId::BOOLEAN)
         {
-            if(this->boolValue)
+            if(this->unsignedInt)
                 return 1;
             else
                 return 0;
@@ -250,10 +253,11 @@ namespace klib
             return floor(this->floatingPoint);
         }
 
-        if(this->typeId == anyTypeId::STRING)
+        if(this->typeId == anyTypeId::STRING_UTF8)
         {
             return i64(this->stringValue);
         }
+        exception::ANY_MISSING_CONVERSION(this->typeId,anyTypeId::INT64);
     }
 
     //
@@ -274,7 +278,7 @@ namespace klib
 
         if(this->typeId == anyTypeId::BOOLEAN)
         {
-            if(this->boolValue)
+            if(this->unsignedInt)
                 return 1;
             else
                 return 0;
@@ -285,10 +289,11 @@ namespace klib
             return floor(this->floatingPoint);
         }
 
-        if(this->typeId == anyTypeId::STRING)
+        if(this->typeId == anyTypeId::STRING_UTF8)
         {
             return i32(this->stringValue);
         }
+        exception::ANY_MISSING_CONVERSION(this->typeId,anyTypeId::INT32);
     }
 
     //
@@ -309,7 +314,7 @@ namespace klib
 
         if(this->typeId == anyTypeId::BOOLEAN)
         {
-            if(this->boolValue)
+            if(this->unsignedInt)
                 return 1;
             else
                 return 0;
@@ -320,10 +325,11 @@ namespace klib
             return floor(this->floatingPoint);
         }
 
-        if(this->typeId == anyTypeId::STRING)
+        if(this->typeId == anyTypeId::STRING_UTF8)
         {
             return i16(this->stringValue);
         }
+        exception::ANY_MISSING_CONVERSION(this->typeId,anyTypeId::INT16);
     }
 
     //
@@ -344,7 +350,7 @@ namespace klib
 
         if(this->typeId == anyTypeId::BOOLEAN)
         {
-            if(this->boolValue)
+            if(this->unsignedInt)
                 return 1;
             else
                 return 0;
@@ -355,10 +361,11 @@ namespace klib
             return floor(this->floatingPoint);
         }
 
-        if(this->typeId == anyTypeId::STRING)
+        if(this->typeId == anyTypeId::STRING_UTF8)
         {
             return i8(this->stringValue);
         }
+        exception::ANY_MISSING_CONVERSION(this->typeId,anyTypeId::INT8);
     }
 
     //
@@ -376,10 +383,11 @@ namespace klib
             return this->floatingPoint;
 
         if(this->typeId == anyTypeId::BOOLEAN)
-            return this->boolValue? 1.0f : 0.0f;
+            return this->unsignedInt? 1.0f : 0.0f;
 
-        if(this->typeId == anyTypeId::STRING)
+        if(this->typeId == anyTypeId::STRING_UTF8)
             return f32(this->stringValue);
+        exception::ANY_MISSING_CONVERSION(this->typeId,anyTypeId::FLOAT32);
     }
 
     //
@@ -397,10 +405,11 @@ namespace klib
             return this->floatingPoint;
 
         if(this->typeId == anyTypeId::BOOLEAN)
-            return this->boolValue? 1.0f : 0.0f;
+            return this->unsignedInt? 1.0f : 0.0f;
 
-        if(this->typeId == anyTypeId::STRING)
+        if(this->typeId == anyTypeId::STRING_UTF8)
             return f64(this->stringValue);
+        exception::ANY_MISSING_CONVERSION(this->typeId,anyTypeId::FLOAT64);
     }
 
     any::operator string() const
@@ -415,11 +424,10 @@ namespace klib
             return string(this->signedInt);
 
         if(this->typeId == anyTypeId::BOOLEAN)
-            return this->boolValue? "true" : "false";
+            return this->unsignedInt? "true" : "false";
 
-        if(this->typeId == anyTypeId::STRING)
+        if(this->typeId == anyTypeId::STRING_UTF8)
             return this->stringValue;
-
-        
+        exception::ANY_MISSING_CONVERSION(this->typeId,anyTypeId::STRING_UTF8);
     }
 }

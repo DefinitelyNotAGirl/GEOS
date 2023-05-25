@@ -2,7 +2,7 @@
  * Created Date: Sunday April 16th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Sunday May 21st 2023 6:37:06 am
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -32,11 +32,11 @@
 
 namespace klib
 {
-    void string::replace(string target, string replacement)
+    void stringUTF8::replace(stringUTF8 target, stringUTF8 replacement)
     {
-        list<string> pieces = this->split(target);
+        list<stringUTF8> pieces = this->split(target);
         this->clear();
-        for(string I : pieces)
+        for(stringUTF8 I : pieces)
         {
             for(char II : I)
                 *this << II;
@@ -45,12 +45,12 @@ namespace klib
         }
     }
 
-    void string::split(string delimiter,u64 limit = 0)
+    list<stringUTF8> stringUTF8::split(stringUTF8 delimiter,u64 limit)
     {
         u64 dPOS = 0;
 
-        list<string> result;
-        string working;
+        list<stringUTF8> result;
+        stringUTF8 working;
 
         for(char I : *this)
         {
@@ -58,24 +58,26 @@ namespace klib
                 working << I;
             else
                 dPOS++;
-            if(dPOS == delimiter.size())
+            if(dPOS == delimiter.size)
             {
                 result << working;
                 working.clear();
                 dPOS = 0;
             }
         }
-        if(working.size() > 0)
+        if(working.size > 0)
             result << working;
 
         return result;
     }
 
-    string::string(const char* str)
+    stringUTF8::stringUTF8(const char* str)
     {
         if(this->size != 0)
             this->clear();
-        for(u64 I = 0;I<strlen(str))
+        for(u64 I = 0;I<strlen((u64)str);I++)
             *this << str[I];
     }
+
+    stringUTF8::stringUTF8(){}
 }

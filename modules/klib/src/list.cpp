@@ -2,7 +2,7 @@
  * Created Date: Sunday April 16th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Sunday May 21st 2023 6:37:06 am
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -31,13 +31,13 @@
 #include <exception>
 #include <stdint>
 #include <misc>
-#include <malloc>
+#include <functions>
 #include <list>
 
 namespace klib
 {
     template<typename T>
-    list<T>::list(list<T> obj)
+    list<T>::list(list<T>& obj)
     {
         this->data = malloc(sizeof(T)*obj.size);
         memcpy(obj.data,this->data,obj.size*sizeof(T));
@@ -166,7 +166,7 @@ namespace klib
     }
 
     template<typename T>
-    T* list<T>::dataAddress()
+    T* list<T>::dataAddress() const
     {
         return this->data;
     }

@@ -25,18 +25,17 @@
  */
 #pragma once
 
+#include <stdint>
+
 #define PAGE_SIZE 0x200000
 
-#define PROC_ID_MAPEND  0x0000000000000000;
-#define PROC_ID_NONE    0x0000000000000001;
-#define PROC_ID_FIRM    0x0000000000000002;
-#define PROC_ID_MMIO    0x0000000000000003;
-#define PROC_ID_KERNEL  0x0000000000000004;
-#define PROC_ID_GSHARE  0x0000000000000005;
-#define PROC_ID_DAMAGED 0x0000000000000006;
+#define PROC_ID_MAPEND  0x0000000000000000
+#define PROC_ID_NONE    0x0000000000000001
+#define PROC_ID_FIRM    0x0000000000000002
+#define PROC_ID_MMIO    0x0000000000000003
+#define PROC_ID_KERNEL  0x0000000000000004
+#define PROC_ID_GSHARE  0x0000000000000005
+#define PROC_ID_DAMAGED 0x0000000000000006
 
-extern "C" int init();
-extern "C" uint64_t getFreePageAddr(uint64_t skip);//return 0 is invalid
-extern "C" void delloc(uint64_t procID);
-extern "C" void* malloc(uint64_t size);
-extern void deallocatePage(uint64_t physAddr, uint64_t procID);
+#define MEM_STATUS_OK 0x00000000000000
+#define MEM_STATUS_BAD 0x0000000000000001

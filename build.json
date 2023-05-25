@@ -8,13 +8,13 @@
         "c" : ["c"]
     },
     "util" : {
-        "cc" : "gcc-12",
-        "cxx" : "g++-12",
-        "as" : "gcc-12",
-        "ld" : "ld"
+        "cc" : "x86_64-elf-gcc",
+        "cxx" : "x86_64-elf-g++",
+        "as" : "x86_64-elf-as",
+        "ld" : "x86_64-elf-ld"
     },
     "include" : {
-        "kernel" : ["modules/klib/inc/"]
+        "kernel" : ["modules/klib/inc/","inc/"]
     },
     "args" : {
         "kernelNoWarn" : {
@@ -34,6 +34,20 @@
             "c++" : ["-MP","-MD"],
             "c" : [],
             "ld" : []
+        },
+        "system" : {
+            "aarch64-OSX" : {
+                "as" : [""],
+                "c++" : ["-march=x86-64"],
+                "c" : ["-march=x86-64"],
+                "ld" : [""]
+            },
+            "x86_64-gnu_linux" : {
+                "as" : [""],
+                "c++" : ["-march=x86-64"],
+                "c" : ["-march=x86-64"],
+                "ld" : [""]
+            }
         }
     },
     "kmods" : {
@@ -43,7 +57,7 @@
             "spath" : "modules/INIT/",
             "lds" : "LDS/INIT.ld",
             "inc" : ["kernel"],
-            "args" : ["kernel","kernelNoWarn"]
+            "args" : ["kernel","kernelNoWarn","dependency"]
         },
         "FUNCDIS" : {
             "output" : "out/kernel/FUNCDIS.elf64",
@@ -51,23 +65,23 @@
             "spath" : "modules/FUNCDIS/",
             "lds" : "LDS/FUNCDIS.ld",
             "inc" : ["kernel"],
-            "args" : ["kernel","kernelNoWarn"]
+            "args" : ["kernel","kernelNoWarn","dependency"]
         },
         "klib" : {
-            "output" : "out/klib.elf64",
+            "output" : "out/kernel/klib.elf64",
             "opath" : "build/klib/",
             "spath" : "modules/klib/",
             "lds" : "LDS/klib.ld",
-            "inc" : [],
-            "args" : []
+            "inc" : ["kernel"],
+            "args" : ["kernel","kernelNoWarn","dependency"]
         },
         "MALLOC" : {
-            "output" : "out/MALLOC.elf64",
+            "output" : "out/kernel/MALLOC.elf64",
             "opath" : "build/MALLOC/",
             "spath" : "modules/MALLOC/",
             "lds" : "LDS/MALLOC.ld",
-            "inc" : [],
-            "args" : []
+            "inc" : ["kernel"],
+            "args" : ["kernel","kernelNoWarn","dependency"]
         }
     }
 }

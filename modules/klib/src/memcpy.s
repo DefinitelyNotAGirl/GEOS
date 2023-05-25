@@ -2,7 +2,7 @@
  * Created Date: Wednesday April 26th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday April 26th 2023 7:41:14 am
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -28,6 +28,8 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
+.intel_syntax noprefix
+
 .global memcpy
 .global memzero
 
@@ -38,25 +40,27 @@
 # bytes = rdx
 # no stack setup or cleanup since we dont touch the stack
 memcpy:
-.loop:
-    mov [rdi], [rsi] # copy value from src to dst
+.loopmc:
+    movq [rdi], rax # copy value from src to dst
+    movq rax, [rsi]
     inc rdi # next src
     inc rsi # next dst
     dec rdx # dec counter
 
     cmp rdx, $0
-    jg .loop
+    jg .loopmc
     ret
 
 # target = rdi
 # bytes = rsi
 # no stack setup or cleanup since we dont touch the stack
 memzero:
-.loop:
-    mov [rdi], $0 # zero out current byte
+    xor rax, rax
+.loopmz:
+    movq rax, [rdi]  # zero out current byte
     inc rdi # next byte
     dec rsi # dec counter
 
     cmp rsi, $0
-    jg .loop
+    jg .loopmz
     ret

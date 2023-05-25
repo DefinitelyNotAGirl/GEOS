@@ -2,7 +2,7 @@
  * Created Date: Wednesday April 26th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Sunday May 21st 2023 6:37:06 am
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -35,14 +35,6 @@ namespace klib
 {
     u64 init(void* bootInfo)
     {
-        funcGet = ((__bootInfo__*)bootInfo)->funcGet;
-        if(funcGet == 0)
-            return 101;
-
-        funcReg = funcGet('__geos__','_funcReg');
-        malloc = funcGet('__geos__','_malloc_');
-        free = funcGet('__geos__','__free__');
-
         return 0;
     }
 }

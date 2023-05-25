@@ -1,9 +1,5 @@
-/*
- * Created Date: Wednesday April 26th 2023
+/**
  * Author: DefinitelyNotAGirl@github
- * -----
- * Last Modified: Wednesday April 26th 2023 10:28:37 am
- * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
  * 
@@ -27,5 +23,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#define M_BASE_KERNEL_PAGES 256
+extern "C" int init();

@@ -2,7 +2,7 @@
  * Created Date: Sunday May 21st 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Sunday May 21st 2023 10:40:28 pm
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -38,7 +38,7 @@ namespace klib
         this->putChar(c);
     }
 
-    void ostream::putChar(char* str)
+    void ostream::putstr(char* str)
     {
         if(this->putStrAvailable)
         {
@@ -46,7 +46,7 @@ namespace klib
         }
         else
         {
-            u64 l = strlen(str);
+            u64 l = strlen((u64)str);
             for(u64 i = 0; i < l; i++)
                 this->putChar(str[i]);
         }

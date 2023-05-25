@@ -2,7 +2,7 @@
  * Created Date: Thursday May 18th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Sunday May 21st 2023 6:37:06 am
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,29 +27,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
-
 #include <STI>
 #include <exception>
+
 namespace klib
 {
     //helper functions
     static u64 hexToUint64(string& str)
     {
         u64 result = 0;
-        const char* str = str.dataAddress()+2;
+        char* cstr = (char*)str.dataAddress()+2;
 
-        for(char c : str)
+        for(char* c = cstr; c < cstr+str.length()-2; c++)
         {
-            if(c>0x60)
-                c-=0x57;
-            else if(c>0x40)
-                c-=0x37;
+            if(*c>0x60)
+                *c-=0x57;
+            else if(*c>0x40)
+                *c-=0x37;
             else
-                c-=0x30;
+                *c-=0x30;
 
             result <<= 4;
-            result |= c;
+            result |= *c;
         }
         return result;
     }
@@ -68,20 +67,7 @@ namespace klib
 
     static u64 binToUint64(string& str)
     {
-        exception::FUNCTION_NOT_IMPLEMENTED();
+        klib::exception::FUNCTON_NOT_IMPLEMENTED();
+        return 0;
     }
-
-    //operators
-    operator u64(string s)
-    {
-        if(((u16*)(s.dataAddress()))[0] == 'x0')
-            return hexToUint64(s)
-        else if(((u16*)(s.dataAddress()))[0] == 'b0')
-            return binToUint64(s);
-        else
-            return decToUint64(s);
-    };
-    operator u32(string s);
-    operator u16(string s);
-    operator u8(string s);
-};
+}

@@ -1,9 +1,5 @@
-/*
- * Created Date: Wednesday May 24th 2023
+/**
  * Author: DefinitelyNotAGirl@github
- * -----
- * Last Modified: Wednesday May 24th 2023 10:01:07 am
- * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
  * 
@@ -27,15 +23,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#define PHYS_MMAP_BASE  0x0000000001800000; //start of physical memory map
-
-enum class malloc_type
-{
-    code,data,rodata,stack
-};
-
-enum class malloc_priv
-{
-    kernel,user
-};
+extern "C" int init();

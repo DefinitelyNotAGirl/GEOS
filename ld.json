@@ -59,7 +59,7 @@
                 "bss" : "0x0000000000000000"
             },
             "extra" : {
-                "mods" : [],
+                "mods" : ["klib"],
                 "msec" : ["/DISCARD/"]
             }
         }

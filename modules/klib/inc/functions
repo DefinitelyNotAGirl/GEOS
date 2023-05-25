@@ -35,7 +35,7 @@ u64 (*funcReg)(u64 module,u64 func,u64 addr);
 void*(*funcGet)(u64 module,u64 func);
 
 //mem
-void*(*__malloc__)(u64 size);
-void(*falloc)(u64 paddr,u64 vaddr);
-int(*memStatus)(u64 paddr);
-void(*__free__)(void* base, u64 size);
+void*(*malloc)(u64 size);
+void(*falloc)(u64 paddr,u64 vaddr,u64 procID);
+u64(*memStatus)(u64 paddr);
+void(*free)(void* base);

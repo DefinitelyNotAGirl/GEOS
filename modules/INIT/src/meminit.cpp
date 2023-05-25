@@ -27,9 +27,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
-
 #include <stdint>
+#include <functions>
+#include <MALLOC>
 
 #ifndef MEM_KERNEL_BOTTOM_RESERVED
     #define MEM_KERNEL_BOTTOM_RESERVED 256 //reserve first 256 memory pages by default
@@ -37,4 +37,12 @@
 
 u64 meminit()
 {
+    //allocate reserved memory
+    for(u64 i = 0; i < MEM_KERNEL_BOTTOM_RESERVED; i++)
+    {
+        if(memStatus(i*PAGE_SIZE) == MEM_STATUS_OK)
+            falloc(i*PAGE_SIZE,i*PAGE_SIZE,PROC_ID_KERNEL);
+    }
+
+    return 0;
 }

@@ -27,6 +27,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 #
-include MAKE/include.mak
 
-all: m-all
+all: modinc-all m-all
+
+clean:
+	rm -r build/**/*.o
+	rm -r build/**/*.d
+
+include make/include.mak

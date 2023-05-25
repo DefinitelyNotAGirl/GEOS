@@ -2,7 +2,7 @@
  * Created Date: Wednesday April 26th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday April 26th 2023 3:16:55 am
+ * Last Modified: Wednesday May 24th 2023 7:20:27 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -30,25 +30,20 @@
 
 #include <exception>
 #include <stdint>
-#include <misc>
-#include <malloc>
 
 namespace klib::exception
 {
-    u64 INDEX_OUT_OF_BOUNDS()
+    void INDEX_OUT_OF_BOUNDS()
     {
         FUNCTON_NOT_IMPLEMENTED();
-        return 0;
     }
 
-    u64 FUNCTON_NOT_IMPLEMENTED()
+    void FUNCTON_NOT_IMPLEMENTED()
     {
-        return 0;
     }
 
-    u64 ANY_MISSING_CONVERSION(anyTypeId from, anyTypeId to)
+    void ANY_MISSING_CONVERSION(anyTypeId from, anyTypeId to)
     {
         FUNCTON_NOT_IMPLEMENTED();
-        return 0;
     }
 }
