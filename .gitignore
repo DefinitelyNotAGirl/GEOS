@@ -63,3 +63,7 @@ geosfsroot/
 GEOS_DISK_ROOT/
 mnt/
 make/
+
+inc/BUILD.h
+
+-c
