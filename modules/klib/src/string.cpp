@@ -2,7 +2,7 @@
  * Created Date: Sunday April 16th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday May 24th 2023 7:20:27 am
+ * Last Modified: Thursday May 25th 2023 2:27:13 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -28,6 +28,7 @@
  * DEALINGS IN THE SOFTWARE.
  */
 #include <misc>
+#include <exception>
 #include <string>
 
 namespace klib
@@ -79,5 +80,114 @@ namespace klib
             *this << str[I];
     }
 
+    stringUTF8::stringUTF8(const stringUTF8& str)
+    {
+        this->size = str.size;
+        this->data = str.data;
+    }
+
+    stringUTF8::stringUTF8(u64 x)
+    {
+        exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    stringUTF8::stringUTF8(u32 x)
+    {
+        exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    stringUTF8::stringUTF8(u16 x)
+    {
+        exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    stringUTF8::stringUTF8(u8 x)
+    {
+        exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    stringUTF8::stringUTF8(i64 x)
+    {
+        exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    stringUTF8::stringUTF8(i32 x)
+    {
+        exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    stringUTF8::stringUTF8(i16 x)
+    {
+        exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    stringUTF8::stringUTF8(i8 x)
+    {
+        exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    stringUTF8::stringUTF8(f32 x)
+    {
+        exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    stringUTF8::stringUTF8(f64 x)
+    {
+        exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+
     stringUTF8::stringUTF8(){}
+
+    void stringUTF8::operator<<(stringUTF8 s)
+    {
+        klib::exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    void stringUTF8::operator<<(char* s)
+    {
+        klib::exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    void stringUTF8::operator<<(const char* s)
+    {
+        klib::exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    void stringUTF8::operator<<(char c)
+    {
+        klib::exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    void stringUTF8::operator<<(u64 i)
+    {
+        klib::exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    void stringUTF8::operator<<(i64 i)
+    {
+        klib::exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    void stringUTF8::operator<<(f64 d)
+    {
+        klib::exception::FUNCTION_NOT_IMPLEMENTED();
+    }
+    void stringUTF8::operator<<(f32 f)
+    {
+    klib::exception::FUNCTION_NOT_IMPLEMENTED();}
+    stringUTF8::operator u64() const
+    {
+    klib::exception::FUNCTION_NOT_IMPLEMENTED();}
+    stringUTF8::operator u32() const
+    {
+    klib::exception::FUNCTION_NOT_IMPLEMENTED();}
+    stringUTF8::operator u16() const
+    {
+    klib::exception::FUNCTION_NOT_IMPLEMENTED();}
+    stringUTF8::operator u8() const
+    {
+    klib::exception::FUNCTION_NOT_IMPLEMENTED();}
+    stringUTF8::operator i64() const
+    {
+    klib::exception::FUNCTION_NOT_IMPLEMENTED();}
+    stringUTF8::operator i32() const
+    {
+    klib::exception::FUNCTION_NOT_IMPLEMENTED();}
+    stringUTF8::operator i16() const
+    {
+    klib::exception::FUNCTION_NOT_IMPLEMENTED();}
+    stringUTF8::operator i8() const
+    {
+    klib::exception::FUNCTION_NOT_IMPLEMENTED();}
+    stringUTF8::operator f32() const
+    {
+    klib::exception::FUNCTION_NOT_IMPLEMENTED();}
+    stringUTF8::operator f64() const
+    {
+    klib::exception::FUNCTION_NOT_IMPLEMENTED();}
 }

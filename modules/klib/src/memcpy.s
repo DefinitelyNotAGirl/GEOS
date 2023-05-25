@@ -2,7 +2,7 @@
  * Created Date: Wednesday April 26th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday May 24th 2023 7:20:27 am
+ * Last Modified: Thursday May 25th 2023 2:27:13 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -47,7 +47,7 @@ memcpy:
     inc rsi # next dst
     dec rdx # dec counter
 
-    cmp rdx, $0
+    cmp rdx, 0
     jg .loopmc
     ret
 
@@ -61,6 +61,6 @@ memzero:
     inc rdi # next byte
     dec rsi # dec counter
 
-    cmp rsi, $0
+    cmp rsi, 0
     jg .loopmz
     ret

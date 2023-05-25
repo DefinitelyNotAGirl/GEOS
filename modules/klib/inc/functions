@@ -2,7 +2,7 @@
  * Created Date: Wednesday April 26th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday May 24th 2023 7:20:27 am
+ * Last Modified: Thursday May 25th 2023 2:27:13 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -31,11 +31,11 @@
 #include <stdint>
 
 //funcdis
-u64 (*funcReg)(u64 module,u64 func,u64 addr);
-void*(*funcGet)(u64 module,u64 func);
+extern u64 (*funcReg)(u64 module,u64 func,u64 addr);
+extern void*(*funcGet)(u64 module,u64 func);
 
 //mem
-void*(*malloc)(u64 size);
-void(*falloc)(u64 paddr,u64 vaddr,u64 procID);
-u64(*memStatus)(u64 paddr);
-void(*free)(void* base);
+extern void*(*malloc)(u64 size);
+extern void(*falloc)(u64 paddr,u64 vaddr,u64 procID);
+extern u64(*memStatus)(u64 paddr);
+extern void(*free)(void* base);

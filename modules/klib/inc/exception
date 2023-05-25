@@ -27,14 +27,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
 #include <stdint>
-#include <any>
 #include <attr>
+
+namespace klib
+{
+    enum class anyTypeId;
+}
 
 namespace klib::exception
 {
     void NORETURN INDEX_OUT_OF_BOUNDS();
-    void NORETURN FUNCTON_NOT_IMPLEMENTED();
-    void NORETURN ANY_MISSING_CONVERSION(anyTypeId from, anyTypeId to);
+    void NORETURN FUNCTION_NOT_IMPLEMENTED();
+    void NORETURN ANY_MISSING_CONVERSION(klib::anyTypeId from, klib::anyTypeId to);
 }

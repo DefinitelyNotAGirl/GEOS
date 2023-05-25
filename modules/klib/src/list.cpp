@@ -2,7 +2,7 @@
  * Created Date: Sunday April 16th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday May 24th 2023 7:20:27 am
+ * Last Modified: Thursday May 25th 2023 2:27:13 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -28,6 +28,8 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
+#pragma once
+
 #include <exception>
 #include <stdint>
 #include <misc>
@@ -39,8 +41,8 @@ namespace klib
     template<typename T>
     list<T>::list(list<T>& obj)
     {
-        this->data = malloc(sizeof(T)*obj.size);
-        memcpy(obj.data,this->data,obj.size*sizeof(T));
+        this->data = (T*)malloc(sizeof(T)*obj.size);
+        memcpy((u64)obj.data,(u64)this->data,obj.size*sizeof(T));
         this->size = obj.size;
     }
 
@@ -87,9 +89,9 @@ namespace klib
     void list<T>::push_front(T& obj)
     {
         T* tmpd = this->data;
-        this->data = malloc(this->size+1);
-        memcpy(tmpd,this->data+sizeof(T),this->size*sizeof(T));
-        free(tmpd,this->size*sizeof(T));
+        this->data = (T*)malloc(this->size+1);
+        memcpy((u64)tmpd,(u64)this->data+sizeof(T),this->size*sizeof(T));
+        free(tmpd);
         this->data[0] = obj;
         this->size++;
     }
@@ -98,9 +100,9 @@ namespace klib
     void list<T>::push_back(T& obj)
     {
         T* tmpd = this->data;
-        this->data = malloc(this->size+1);
-        memcpy(tmpd,this->data,this->size*sizeof(T));
-        free(tmpd,this->size*sizeof(T));
+        this->data = (T*)malloc(this->size+1);
+        memcpy((u64)tmpd,(u64)this->data,this->size*sizeof(T));
+        free(tmpd);
         this->data[this->size] = obj;
         this->size++;
     }
@@ -111,7 +113,7 @@ namespace klib
         if(this->size == 0)
             return;
         this->size--;
-        free(this->data+this->size*sizeof(T),sizeof(T));
+        free(this->data+this->size*sizeof(T));
     }
 
     template<typename T>
@@ -120,7 +122,7 @@ namespace klib
         if(this->size == 0)
             return;
         this->size--;
-        free(this->data,sizeof(T));
+        free(this->data);
         this->data+=sizeof(T);
     }
     
@@ -161,7 +163,7 @@ namespace klib
     template<typename T>
     void list<T>::clear()
     {
-        free(this->data,this->size*sizeof(T));
+        free(this->data);
         this->size = 0;
     }
 
