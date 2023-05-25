@@ -25,9 +25,9 @@
         },
         "kernel" : {
             "as" : [],
-            "c++" : ["-O0","-nostdlib","-ffreestanding","-fno-stack-protector"],
+            "c++" : ["-O0","","-fno-rtti","-fno-exceptions","-nostdlib","-ffreestanding","-fno-stack-protector"],
             "c" : [],
-            "ld" : []
+            "ld" : ["-nostdlib"]
         },
         "dependency" : {
             "as" : ["-M","-MD"],
@@ -37,20 +37,28 @@
         },
         "system" : {
             "aarch64-OSX" : {
-                "as" : [""],
+                "as" : [],
                 "c++" : ["-march=x86-64"],
                 "c" : ["-march=x86-64"],
-                "ld" : [""]
+                "ld" : []
             },
             "x86_64-gnu_linux" : {
-                "as" : [""],
+                "as" : [],
                 "c++" : ["-march=x86-64"],
                 "c" : ["-march=x86-64"],
-                "ld" : [""]
+                "ld" : []
             }
         }
     },
     "kmods" : {
+        "klib" : {
+            "output" : "out/kernel/klib.elf64",
+            "opath" : "build/klib/",
+            "spath" : "modules/klib/",
+            "lds" : "LDS/klib.ld",
+            "inc" : ["kernel"],
+            "args" : ["kernel","kernelNoWarn","dependency"]
+        },
         "INIT" : {
             "output" : "out/kernel/INIT.elf64",
             "opath" : "build/INIT/",
@@ -67,14 +75,6 @@
             "inc" : ["kernel"],
             "args" : ["kernel","kernelNoWarn","dependency"]
         },
-        "klib" : {
-            "output" : "out/kernel/klib.elf64",
-            "opath" : "build/klib/",
-            "spath" : "modules/klib/",
-            "lds" : "LDS/klib.ld",
-            "inc" : ["kernel"],
-            "args" : ["kernel","kernelNoWarn","dependency"]
-        },
         "MALLOC" : {
             "output" : "out/kernel/MALLOC.elf64",
             "opath" : "build/MALLOC/",
@@ -82,6 +82,22 @@
             "lds" : "LDS/MALLOC.ld",
             "inc" : ["kernel"],
             "args" : ["kernel","kernelNoWarn","dependency"]
+        },
+        "gfs0.fs" : {
+            "output" : "out/gfs0.fs.elf64",
+            "opath" : "build/gfs0.fs/",
+            "spath" : "modules/gfs0.fs/",
+            "lds" : "LDS/gfs0.fs.ld",
+            "inc" : [],
+            "args" : []
+        },
+        "fat32.fs" : {
+            "output" : "out/fat32.fs.elf64",
+            "opath" : "build/fat32.fs/",
+            "spath" : "modules/fat32.fs/",
+            "lds" : "LDS/fat32.fs.ld",
+            "inc" : [],
+            "args" : []
         }
     }
 }

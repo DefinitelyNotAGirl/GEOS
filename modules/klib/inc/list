@@ -71,3 +71,4 @@ namespace klib
     };
 }
 
+#include "../src/list.cpp"

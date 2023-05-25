@@ -34,4 +34,12 @@ clean:
 	rm -r build/**/*.o
 	rm -r build/**/*.d
 
+INSTALL_DIR="../geosTestEnv/iso"
+
+install:
+	@echo "copying kernel binaries"
+	cp out/kernel/klib.elf64 $(INSTALL_DIR)/boot/geos/kernel/
+	cp out/kernel/INIT.elf64 $(INSTALL_DIR)/boot/geos/kernel/
+	@echo "done"
+
 include make/include.mak
