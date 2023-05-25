@@ -1,8 +1,8 @@
 /*
- * Created Date: Friday March 24th 2023
+ * Created Date: Thursday May 25th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Thursday May 25th 2023 2:27:13 am
+ * Last Modified: Thursday May 25th 2023 11:22:56 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,8 +27,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#define DEPRECATED __attribute__((deprecated))
-#define NORETURN __attribute__((noreturn))
-#define PACKED __attribute__((packed))
+.intel_syntax noprefix
+
+.global kernelExit
+
+.text
+
+kernelExit:
+# insert proper exit logic at some point
+    cli
+.kexitLoop:
+    hlt
+    jmp .kexitLoop

@@ -2,7 +2,7 @@
  * Created Date: Wednesday April 26th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday May 24th 2023 7:20:27 am
+ * Last Modified: Thursday May 25th 2023 2:27:13 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -30,6 +30,7 @@
 
 #include <exception>
 #include <stdint>
+#include <misc>
 
 namespace klib::exception
 {
@@ -40,6 +41,7 @@ namespace klib::exception
 
     void FUNCTON_NOT_IMPLEMENTED()
     {
+        kernelExit();
     }
 
     void ANY_MISSING_CONVERSION(anyTypeId from, anyTypeId to)
