@@ -2,7 +2,7 @@
  * Created Date: Wednesday May 24th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Wednesday May 24th 2023 10:02:27 am
+ * Last Modified: Thursday May 25th 2023 2:27:13 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,14 +27,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
-
 #include <MALLOC>
 #include <main>
 #include <stdint>
 
 u64 getFreeVirtPageAddr()
 {
+    return 0;//invalid addr
 }
 
 u64 getFreePageAddr(u64 skipPages)

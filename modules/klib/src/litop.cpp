@@ -2,7 +2,7 @@
  * Created Date: Friday April 28th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Sunday May 21st 2023 6:37:06 am
+ * Last Modified: Thursday May 25th 2023 2:26:50 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,8 +27,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
-
 #include <litop>
 
 constexpr u64 operator""PByte(unsigned long long const x){return x*PETA;}
