@@ -1,8 +1,8 @@
 /*
- * Created Date: Wednesday April 26th 2023
+ * Created Date: Friday May 26th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Thursday May 25th 2023 2:27:13 am
+ * Last Modified: Friday May 26th 2023 9:16:56 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,21 +27,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#define READ64(addr,var) var = ((u64*)addr)[0]
-#define READ32(addr,var) var = ((u32*)addr)[0]
-#define READ16(addr,var) var = ((u16*)addr)[0]
-#define READ8(addr,var) var = ((u8*)addr)[0]
+#include <stdint>
 
-#define WRITE64(addr,value) ((u64*)addr)[0] = value
-#define WRITE32(addr,value) ((u32*)addr)[0] = value
-#define WRITE16(addr,value) ((u16*)addr)[0] = value
-#define WRITE8(addr,value) ((u8*)addr)[0] = value
-
-#define TYPE_WRAPPER(name,type) class name {type data;}
-#define STR_HELPER(x) #x
-#define STR(x) STR_HELPER(x)
-#define interrupt(n) __asm__("int $"STR(n)"")
-#define MIN(x,y) ((x)<(y)?(x):(y))
-#define MAX(x,y) ((x)>(y)?(x):(y))
-#define ISMULTIPLE(x,n)(x%n==0?true:false)
+extern "C" void init_memcpy(void* src, void* dst, u64 len);
+extern "C" void init_memzero(void* target, u64 len);
+extern "C" uint64_t init_memiszero(void* target, u64 len);//returns 0 on success and 1 on error

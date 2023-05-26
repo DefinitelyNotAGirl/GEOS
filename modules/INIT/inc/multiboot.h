@@ -1,8 +1,8 @@
-/*
- * Created Date: Wednesday April 26th 2023
+/**
+ * Created Date: Friday May 26th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Thursday May 25th 2023 2:27:13 am
+ * Last Modified: Friday May 26th 2023 7:29:22 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,21 +27,57 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
+#pragma once
 
-#define READ64(addr,var) var = ((u64*)addr)[0]
-#define READ32(addr,var) var = ((u32*)addr)[0]
-#define READ16(addr,var) var = ((u16*)addr)[0]
-#define READ8(addr,var) var = ((u8*)addr)[0]
+#include <attr>
+#include <stdint>
 
-#define WRITE64(addr,value) ((u64*)addr)[0] = value
-#define WRITE32(addr,value) ((u32*)addr)[0] = value
-#define WRITE16(addr,value) ((u16*)addr)[0] = value
-#define WRITE8(addr,value) ((u8*)addr)[0] = value
+namespace multiboot
+{
+    //https://www.gnu.org/software/grub/manual/multiboot/html_node/Boot-information-format.html#Boot-information-format
+    struct info
+    {
+        uint32_t flags;
 
-#define TYPE_WRAPPER(name,type) class name {type data;}
-#define STR_HELPER(x) #x
-#define STR(x) STR_HELPER(x)
-#define interrupt(n) __asm__("int $"STR(n)"")
-#define MIN(x,y) ((x)<(y)?(x):(y))
-#define MAX(x,y) ((x)>(y)?(x):(y))
-#define ISMULTIPLE(x,n)(x%n==0?true:false)
+        uint32_t mem_lower;
+        uint32_t mem_upper;
+
+        uint32_t boot_device;
+
+        uint32_t cmd_line;
+
+        uint32_t mods_count;
+        uint32_t mods_addr;
+
+        uint32_t syms0;
+        uint32_t syms1;
+        uint32_t syms2;
+
+        uint32_t mmap_length;
+        uint32_t mmap_addr;
+
+        uint32_t drives_length;
+        uint32_t drives_addr;
+
+        uint32_t config_table;
+
+        uint32_t boot_loader_name;
+
+        uint32_t apm_table;
+
+        uint32_t vbe_control_info;
+        uint32_t vbe_mode_info;
+        uint32_t vbe_mode;
+        uint32_t vbe_interface_seg;
+        uint32_t vbe_interface_off;
+        uint32_t vbe_interface_len;
+
+        uint32_t framebuffer_addr;
+        uint32_t framebuffer_pitch;
+        uint32_t framebuffer_width;
+        uint32_t framebuffer_height;
+        uint32_t framebuffer_bpp;
+        uint32_t framebuffer_type;
+        uint32_t color_info;
+    } PACKED ;
+}

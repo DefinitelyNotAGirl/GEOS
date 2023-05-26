@@ -1,8 +1,8 @@
 /*
- * Created Date: Wednesday April 26th 2023
+ * Created Date: Friday May 26th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Thursday May 25th 2023 2:27:13 am
+ * Last Modified: Friday May 26th 2023 9:10:11 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -28,20 +28,57 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#define READ64(addr,var) var = ((u64*)addr)[0]
-#define READ32(addr,var) var = ((u32*)addr)[0]
-#define READ16(addr,var) var = ((u16*)addr)[0]
-#define READ8(addr,var) var = ((u8*)addr)[0]
+.intel_syntax noprefix
 
-#define WRITE64(addr,value) ((u64*)addr)[0] = value
-#define WRITE32(addr,value) ((u32*)addr)[0] = value
-#define WRITE16(addr,value) ((u16*)addr)[0] = value
-#define WRITE8(addr,value) ((u8*)addr)[0] = value
+.global init_memcpy
+.global init_memzero
+.global init_memiszero
 
-#define TYPE_WRAPPER(name,type) class name {type data;}
-#define STR_HELPER(x) #x
-#define STR(x) STR_HELPER(x)
-#define interrupt(n) __asm__("int $"STR(n)"")
-#define MIN(x,y) ((x)<(y)?(x):(y))
-#define MAX(x,y) ((x)>(y)?(x):(y))
-#define ISMULTIPLE(x,n)(x%n==0?true:false)
+.text
+
+# src = rdi
+# dst = rsi
+# bytes = rdx
+# no stack setup or cleanup since we dont touch the stack
+init_memcpy:
+.loopmc:
+    movq [rdi], rax # copy value from src to dst
+    movq rax, [rsi]
+    inc rdi # next src
+    inc rsi # next dst
+    dec rdx # dec counter
+
+    cmp rdx, 0
+    jg .loopmc
+    ret
+
+# target = rdi
+# bytes = rsi
+# no stack setup or cleanup since we dont touch the stack
+init_memzero:
+    xor rax, rax
+.loopmz:
+    movq rax, [rdi]  # zero out current byte
+    inc rdi # next byte
+    dec rsi # dec counter
+
+    cmp rsi, 0
+    jg .loopmz
+    ret
+
+# target = rdi
+# bytes = rsi
+init_memiszero:
+    xor rax, rax
+.loopmiz:
+    cmp rax, [rdi]
+    jne .mizRF
+    dec rsi
+
+    cmp rsi, rax
+    jg .loopmiz
+.mizRT:
+    ret
+.mizRF:
+    movq rax, 1
+    ret
