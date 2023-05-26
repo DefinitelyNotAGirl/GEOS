@@ -24,8 +24,42 @@
  * DEALINGS IN THE SOFTWARE.
  */
 #include <INIT.h>
+#include <attr>
+#include <bits>
+#include <macros>
+#include <multiboot.h>
+#include <bootInfo>
+#include <decext>
 
-extern "C" int init()
+extern "C" void initiate(multiboot::info* multiBootInfo)
 {
-	return 0;
+    //
+    // REMEMBER: we dont have klib in memory at this point
+    //
+
+    __bootInfo__* bootInfo = (__bootInfo__*)0x600000;
+
+    //check if multiBootInfo is on the 4th memory page
+    if(!(multiBootInfo >= (void*)0x800000 && multiBootInfo <= (void*)0x600000-sizeof(multiboot::info)))
+    {
+        //gotta relocate multiBootInfo
+
+        for(uint8_t* i = (uint8_t*)0x200000;i<(void*)0x200000+sizeof(multiboot::info);i++)
+        {
+            if(init_memiszero((void*)0x200000,sizeof(multiboot::info)) == 0)
+                init_memcpy(multiBootInfo,(void*)0x200000,sizeof(multiboot::info));
+            interrupt(0xFD);
+        }
+    }
+
+    //assume multiBootInfo is now in a safe location and that 0x600000-0x800000 is free
+    if(EXPR_GETBIT_00(multiBootInfo->flags))
+    {
+        if(multiBootInfo->mem_lower > 640)
+            interrupt(0xFE);//640KiB is the max for mem_lower
+
+        bootInfo->VirtualMemoryMAX = (multiBootInfo->mem_lower+multiBootInfo->mem_upper)*1024;
+    }
+    else
+        interrupt(0xFC);//terminate kernel, no memory information
 }

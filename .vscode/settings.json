@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "STI": "c",
+        "paging": "cpp",
         "*.java": "java",
         "*.c": "c",
         "*.h": "cpp",
@@ -83,7 +84,8 @@
         "math": "cpp",
         "sconv": "cpp",
         "attr": "cpp",
-        "main": "cpp"
+        "main": "cpp",
+        "multiboot": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "psi-header.config": {

@@ -19,14 +19,20 @@
     "args" : {
         "kernelNoWarn" : {
             "as" : [],
-            "c++" : ["-Wno-literal-suffix"],
+            "c++" : ["-Wno-literal-suffix","-Wno-pointer-arith"],
+            "c" : [],
+            "ld" : []
+        },
+        "permissive" : {
+            "as" : [],
+            "c++" : ["-fpermissive","-Wno-int-to-pointer-cast","-Wno-pointer-to-int-cast"],
             "c" : [],
             "ld" : []
         },
         "kernel" : {
             "as" : [],
-            "c++" : ["-O0","","-fno-rtti","-fno-exceptions","-nostdlib","-ffreestanding","-fno-stack-protector"],
-            "c" : [],
+            "c++" : ["-O0","","-fno-rtti","-fno-exceptions","-nostdlib","-ffreestanding","-fno-stack-protector","-fno-builtin","-nostartfiles","-Wunreachable-code"],
+            "c" : ["-Wunreachable-code"],
             "ld" : ["-nostdlib"]
         },
         "dependency" : {
@@ -65,7 +71,7 @@
             "spath" : "modules/INIT/",
             "lds" : "LDS/INIT.ld",
             "inc" : ["kernel"],
-            "args" : ["kernel","kernelNoWarn","dependency"]
+            "args" : ["kernel","kernelNoWarn","dependency","permissive"]
         },
         "FUNCDIS" : {
             "output" : "out/kernel/FUNCDIS.elf64",
