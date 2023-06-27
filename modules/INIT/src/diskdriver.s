@@ -27,11 +27,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <stdint>
+.extern init_memcpy
+.extern init_memzero
+.extern init_memiszero
 
-extern "C" void init_memcpy(void* src, void* dst, u64 len);
-extern "C" void init_memzero(void* target, u64 len);
-extern "C" uint64_t init_memiszero(void* target, u64 len);//returns 0 on success and 1 on error
-extern "C" void pageFaultHandler();
+.global diskdriverinit
+
+diskdriverinit:
+    

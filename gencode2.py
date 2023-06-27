@@ -1,11 +1,13 @@
-# 
-# Created Date: Friday November 25th 2022
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+###
+# Created Date: Tuesday June 27th 2023
 # Author: DefinitelyNotAGirl@github
 # -----
-# Last Modified: Friday November 25th 2022 3:33:05 pm
-# Modified By: DefinitelyNotAGirl@github (definitelynotagirl115199@gmail.com)
+# Last Modified: Tuesday June 27th 2023 2:11:45 am
+# Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
 # -----
-# Copyright (c) 2022 DefinitelyNotAGirl@github
+# Copyright (c) 2023 DefinitelyNotAGirl@github
 # 
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation
@@ -26,22 +28,16 @@
 # WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
-#
+###
 
-all: modinc-all m-all m-EFI
+data = [
+"ACPI"                  ,
+"SAL_SYSTEM"            ,
+"SMBIOS"                ,
+"SMBIOS3"               ,
+"MPS"                   ,
+"PROPERTIES_TABLE"      ,
+]
 
-clean:
-	rm -r build/**/*.o
-	rm -r build/**/*.d
-
-INSTALL_DIR="../geosTestEnv/content"
-
-install:
-	@echo "copying kernel binaries"
-	cp out/kernel/klib.elf64 $(INSTALL_DIR)/geos/kernel/
-	cp out/kernel/INIT.elf64 $(INSTALL_DIR)/geos/kernel/
-	cp out/kernel/BOOTX64.EFI $(INSTALL_DIR)/EFI/BOOT/BOOTX64.EFI
-	@echo "done"
-
-include make/include.mak
-include make/EFI.mak
+for i in data:
+    print("else if(efiConfigTable[i].VendorGuid == GUID_"+i+"){print(u\""+i+"\");econf."+i+" = efiConfigTable[i].VendorTable;}")

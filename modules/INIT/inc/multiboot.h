@@ -2,7 +2,7 @@
  * Created Date: Friday May 26th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Friday May 26th 2023 7:29:22 pm
+ * Last Modified: Friday May 26th 2023 10:25:16 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -80,4 +80,21 @@ namespace multiboot
         uint32_t framebuffer_type;
         uint32_t color_info;
     } PACKED ;
+}
+
+namespace multiboot2
+{
+    class tag_base
+    {
+    public:
+        u32 type;
+        u32 size;
+    } PACKED;
+
+    class BasicMemoryInformation : public tag_base
+    {
+    public:
+        u32 mem_lower;
+        u32 mem_upper;
+    } PACKED;
 }

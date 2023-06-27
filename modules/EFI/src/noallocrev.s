@@ -1,8 +1,8 @@
 /*
- * Created Date: Friday May 26th 2023
+ * Created Date: Tuesday June 27th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Friday May 26th 2023 10:25:16 pm
+ * Last Modified: Tuesday June 27th 2023 12:35:22 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,11 +27,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <stdint>
+ # fuck clang
 
-extern "C" void init_memcpy(void* src, void* dst, u64 len);
-extern "C" void init_memzero(void* target, u64 len);
-extern "C" uint64_t init_memiszero(void* target, u64 len);//returns 0 on success and 1 on error
-extern "C" void pageFaultHandler();
+ /*
+
+.global strreverse
+.extern strlen
+
+.text
+
+# rcx is str address
+strreverse:
+    call strlen # rax is now string length
+    movq %crcx, %rdx
+    add %rax, %rdx # str end on rdx
+    movq %rcx, %rax # write return value to rax (return input for syntax reasons)
+    movq %rcx, %r8 # copy rcx to r8 for later use
+.loopPUSH:
+    # should rcx == rdx move on to next loop
+    cmp %rcx, %rdx
+    je .loopPOP
+
+    movq [%rcx], %r9
+    push %r9
+    inc %rax # rax++
+
+    jmp .loopPUSH # loop
+.loopPOP:
+    # should rax be 0 return from function
+    cmp %r8, %rax
+    je .exit
+
+    pop %r9
+    movq %r9, [%r8]
+    dec %r8 # r8--
+
+    jmp .loopPOP # loop
+.exit:
+    ret
+
+
+*/

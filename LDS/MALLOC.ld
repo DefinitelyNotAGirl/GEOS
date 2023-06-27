@@ -7,35 +7,35 @@ ENTRY(init)
 SECTIONS {
 	. = 0x0000000000000000;
 	text : {
-		build/MALLOC/*.o (.text)
+		build/MALLOC/*.o (.text*)
 	}
 	. = 0x0000000000000000;
 	data : {
-		build/MALLOC/*.o (.data)
+		build/MALLOC/*.o (.data*)
 	}
 	. = 0x0000000000000000;
 	rodata : {
-		build/MALLOC/*.o (.rodata)
+		build/MALLOC/*.o (.rodata*)
 	}
 	. = 0x0000000000000000;
 	bss : {
-		build/MALLOC/*.o (.bss)
+		build/MALLOC/*.o (.bss*)
 	}
 	. = 0x1C00000;
 	text_klib : {
-		build/klib/*.o (.text)
+		build/klib/*.o (.text*)
 	}
 	. = 0x1E00000;
 	data_klib : {
-		build/klib/*.o (.data)
+		build/klib/*.o (.data*)
 	}
 	. = 0x2000000;
 	rodata_klib : {
-		build/klib/*.o (.rodata)
+		build/klib/*.o (.rodata*)
 	}
 	. = 0x2200000;
 	bss_klib : {
-		build/klib/*.o (.bss)
+		build/klib/*.o (.bss*)
 	}
 	/DISCARD/ : {
 		*(.note*)

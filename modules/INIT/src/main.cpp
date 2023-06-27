@@ -31,35 +31,95 @@
 #include <bootInfo>
 #include <decext>
 
-extern "C" void initiate(multiboot::info* multiBootInfo)
+u64 mb2TagFlags = 0;
+
+extern "C" void DBG_EXIT(u64 n);
+extern "C" void loadIDT(void* idt);
+
+__bootInfo__* bootInfo = (__bootInfo__*)0x600000;
+
+bool evaluateMB2Tag(multiboot2::tag_base* tag)
+{
+    if(tag->type == 0)
+    {
+        return false;
+    }
+    else if(tag->type == 4) // BASIC MEMORY INFORMATION
+    {
+        auto* t = (multiboot2::BasicMemoryInformation*)tag;
+        SETBIT_00(mb2TagFlags);//set 0 for basic mem info
+
+        if(t->mem_lower > 640)
+            interrupt(0xFE);//640KiB is the max for mem_lower
+
+        bootInfo->VirtualMemoryMAX = (t->mem_lower+t->mem_upper)*1024;
+    }
+    else
+    {
+        //DBG_EXIT(0xFFFF0000 | tag->type);
+    }
+
+    if(tag->size == 0)
+    {
+        tag+=8;
+        return true;
+    }
+    
+    if(ISMULTIPLE(tag->size,8) == false)
+    {
+        u64 s = tag->size;
+        while(ISMULTIPLE(s,8) == false)
+            s++;
+        tag+=s;
+        return true;
+    }
+    tag += tag->size;//increment tag pointer by size of tag
+    return true;
+}
+
+void evaluateMultiboot2(void* mb2i)
+{
+    u32 totalSize = *((u32*)(mb2i));
+    if(totalSize == 8)
+        interrupt(0xF0); // no tags, terminate kernel cause no information
+    mb2i += 8;
+    while(evaluateMB2Tag((multiboot2::tag_base*)mb2i)){}
+    DBG_EXIT(0x9999);
+}
+
+void evaluateMultiboot1(void* mb1i)
+{
+}
+
+void installPageFaultHandler()
+{
+    u64* IDTaddress = 0x4400000;
+    u64* IDTlimit = 0x4400000+8;
+    void** IDT = 0x4400000+10;
+
+    //assign page fault handler
+    IDT[0x0E] = &pageFaultHandler;
+
+    *IDTaddress = IDT;
+    *IDTlimit = 2048;
+
+    loadIDT(0x4400000);
+}
+
+extern "C" void initiate(void* mbi,u64 multibootVersion)
 {
     //
     // REMEMBER: we dont have klib in memory at this point
     //
 
-    __bootInfo__* bootInfo = (__bootInfo__*)0x600000;
+    installPageFaultHandler();
 
-    //check if multiBootInfo is on the 4th memory page
-    if(!(multiBootInfo >= (void*)0x800000 && multiBootInfo <= (void*)0x600000-sizeof(multiboot::info)))
-    {
-        //gotta relocate multiBootInfo
-
-        for(uint8_t* i = (uint8_t*)0x200000;i<(void*)0x200000+sizeof(multiboot::info);i++)
-        {
-            if(init_memiszero((void*)0x200000,sizeof(multiboot::info)) == 0)
-                init_memcpy(multiBootInfo,(void*)0x200000,sizeof(multiboot::info));
-            interrupt(0xFD);
-        }
-    }
-
-    //assume multiBootInfo is now in a safe location and that 0x600000-0x800000 is free
-    if(EXPR_GETBIT_00(multiBootInfo->flags))
-    {
-        if(multiBootInfo->mem_lower > 640)
-            interrupt(0xFE);//640KiB is the max for mem_lower
-
-        bootInfo->VirtualMemoryMAX = (multiBootInfo->mem_lower+multiBootInfo->mem_upper)*1024;
-    }
+    if(multibootVersion == 1)
+        evaluateMultiboot1(mbi);
+    else if(multibootVersion == 2)
+        evaluateMultiboot2(mbi);
     else
-        interrupt(0xFC);//terminate kernel, no memory information
+        interrupt(0xFE);
+
+   interrupt(0xFF);//terminate kernel, end of program
 }

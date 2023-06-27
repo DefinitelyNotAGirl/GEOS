@@ -1,6 +1,6 @@
 {
     "PAGESIZE" : "0x200000",
-    "oformat"  : "elf64-x86-64",
+    "oformat" : "elf64-x86-64",
     "msec" : {
         "/DISCARD/" : {
             "base" : "",

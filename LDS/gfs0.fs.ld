@@ -7,19 +7,19 @@ ENTRY(init)
 SECTIONS {
 	. = 0x0000000000000000;
 	text : {
-		build/gfs0.fs/*.o (.text)
+		build/gfs0.fs/*.o (.text*)
 	}
 	. = 0x0000000000000000;
 	data : {
-		build/gfs0.fs/*.o (.data)
+		build/gfs0.fs/*.o (.data*)
 	}
 	. = 0x0000000000000000;
 	rodata : {
-		build/gfs0.fs/*.o (.rodata)
+		build/gfs0.fs/*.o (.rodata*)
 	}
 	. = 0x0000000000000000;
 	bss : {
-		build/gfs0.fs/*.o (.bss)
+		build/gfs0.fs/*.o (.bss*)
 	}
 	/DISCARD/ : {
 		*(.note*)

@@ -1,9 +1,5 @@
-/*
- * Created Date: Friday May 26th 2023
+/**
  * Author: DefinitelyNotAGirl@github
- * -----
- * Last Modified: Friday May 26th 2023 10:25:16 pm
- * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
  * 
@@ -29,9 +25,38 @@
  */
 #pragma once
 
+#include <EFIConfig.hxx>
+#include <Uefi.h>
 #include <stdint>
 
-extern "C" void init_memcpy(void* src, void* dst, u64 len);
-extern "C" void init_memzero(void* target, u64 len);
-extern "C" uint64_t init_memiszero(void* target, u64 len);//returns 0 on success and 1 on error
-extern "C" void pageFaultHandler();
+#define MC64(constant) *((uint64_t*)((char*)constant))
+
+extern "C" void stackPush(uint64_t);
+extern "C" uint64_t stackPop();
+extern "C" uint64_t getStackPointer();
+extern "C" void setStackPointer(uint64_t);
+extern "C" void tripleFault(uint64_t errorCode);
+extern "C" uint64_t getRIP();
+extern "C" uint64_t readP32(uint64_t addr);
+
+extern EFI_GUID GUID_ACPI;
+extern EFI_GUID GUID_SAL_SYSTEM;
+extern EFI_GUID GUID_SMBIOS;
+extern EFI_GUID GUID_SMBIOS3;
+extern EFI_GUID GUID_MPS;
+extern EFI_GUID GUID_PROPERTIES_TABLE;
+
+extern efiConfig econf;
+extern uint64_t entryRIP;
+
+void print64(uint64_t value);
+void print32(uint32_t value);
+void print64r(uint64_t value);
+void print32r(uint32_t value);
+void printHex64(uint64_t value);
+
+char* strreverse(char* str);
+EFI_STATUS print(uint16_t* msg);
+EFI_STATUS print(const char16_t* msg);
+uint64_t malloc(uint64_t size);
+void readACPI();

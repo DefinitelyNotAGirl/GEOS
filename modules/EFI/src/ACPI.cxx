@@ -1,8 +1,8 @@
 /*
- * Created Date: Friday May 26th 2023
+ * Created Date: Tuesday June 27th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Friday May 26th 2023 10:25:16 pm
+ * Last Modified: Tuesday June 27th 2023 2:52:23 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,11 +27,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <stdint>
+#include <Uefi.h>
+#include <main.h>
+#include <IndustryStandard/Acpi62.h>
 
-extern "C" void init_memcpy(void* src, void* dst, u64 len);
-extern "C" void init_memzero(void* target, u64 len);
-extern "C" uint64_t init_memiszero(void* target, u64 len);//returns 0 on success and 1 on error
-extern "C" void pageFaultHandler();
+void readACPI_r1(void* RSDP);
+void readACPI_r2(void* RSDP);
+
+void readACPI()
+{
+    EFI_ACPI_6_2_ROOT_SYSTEM_DESCRIPTION_POINTER* acpi_table = (EFI_ACPI_6_2_ROOT_SYSTEM_DESCRIPTION_POINTER*)econf.ACPI;
+    if(acpi_table == NULL)
+    {
+        print(u"ERROR: acpi config table is nullptr");
+        while(1);
+    }
+
+    if(acpi_table->Signature == EFI_ACPI_6_2_ROOT_SYSTEM_DESCRIPTION_POINTER_SIGNATURE)
+        print(u"RSDT found! Finally, inner peace...\n\r");
+    else
+    {
+        print(u"ERROR: acpi table signature is invalid");
+        while(1);
+    }
+
+    if(acpi_table->Revision == 0x00)
+        readACPI_r1(acpi_table);
+    else if(acpi_table->Revision == 0x02)
+        readACPI_r2(acpi_table);
+    else
+    {
+        print(u"ERROR: invalid acpi revision!");
+        tripleFault(acpi_table->Revision);
+        while(1);
+    }
+}

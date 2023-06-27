@@ -1,8 +1,8 @@
 /*
- * Created Date: Friday May 26th 2023
+ * Created Date: Tuesday June 27th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Friday May 26th 2023 10:25:16 pm
+ * Last Modified: Tuesday June 27th 2023 2:47:01 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,11 +27,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
-
 #include <stdint>
+#include <EFIConfig.hxx>
 
-extern "C" void init_memcpy(void* src, void* dst, u64 len);
-extern "C" void init_memzero(void* target, u64 len);
-extern "C" uint64_t init_memiszero(void* target, u64 len);//returns 0 on success and 1 on error
-extern "C" void pageFaultHandler();
+efiConfig econf;
+uint64_t entryRIP;

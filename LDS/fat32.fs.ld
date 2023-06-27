@@ -7,19 +7,19 @@ ENTRY(init)
 SECTIONS {
 	. = 0x0000000000000000;
 	text : {
-		build/fat32.fs/*.o (.text)
+		build/fat32.fs/*.o (.text*)
 	}
 	. = 0x0000000000000000;
 	data : {
-		build/fat32.fs/*.o (.data)
+		build/fat32.fs/*.o (.data*)
 	}
 	. = 0x0000000000000000;
 	rodata : {
-		build/fat32.fs/*.o (.rodata)
+		build/fat32.fs/*.o (.rodata*)
 	}
 	. = 0x0000000000000000;
 	bss : {
-		build/fat32.fs/*.o (.bss)
+		build/fat32.fs/*.o (.bss*)
 	}
 	/DISCARD/ : {
 		*(.note*)

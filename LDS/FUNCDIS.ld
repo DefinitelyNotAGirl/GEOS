@@ -7,35 +7,35 @@ ENTRY(init)
 SECTIONS {
 	. = 0x1000000;
 	text : {
-		build/FUNCDIS/*.o (.text)
+		build/FUNCDIS/*.o (.text*)
 	}
 	. = 0x1200000;
 	data : {
-		build/FUNCDIS/*.o (.data)
+		build/FUNCDIS/*.o (.data*)
 	}
 	. = 0x1400000;
 	rodata : {
-		build/FUNCDIS/*.o (.rodata)
+		build/FUNCDIS/*.o (.rodata*)
 	}
 	. = 0x1600000;
 	bss : {
-		build/FUNCDIS/*.o (.bss)
+		build/FUNCDIS/*.o (.bss*)
 	}
 	. = 0x1C00000;
 	text_klib : {
-		build/klib/*.o (.text)
+		build/klib/*.o (.text*)
 	}
 	. = 0x1E00000;
 	data_klib : {
-		build/klib/*.o (.data)
+		build/klib/*.o (.data*)
 	}
 	. = 0x2000000;
 	rodata_klib : {
-		build/klib/*.o (.rodata)
+		build/klib/*.o (.rodata*)
 	}
 	. = 0x2200000;
 	bss_klib : {
-		build/klib/*.o (.bss)
+		build/klib/*.o (.bss*)
 	}
 	/DISCARD/ : {
 		*(.note*)

@@ -1,5 +1,5 @@
 {
-    "makedir" : "MAKE/",
+    "makedir" : "make/",
     "PDMO" : "../../",
     "incdir" : "inc/",
     "srctypes" : {
@@ -11,7 +11,8 @@
         "cc" : "x86_64-elf-gcc",
         "cxx" : "x86_64-elf-g++",
         "as" : "x86_64-elf-as",
-        "ld" : "x86_64-elf-ld"
+        "ld" : "x86_64-elf-ld",
+        "objcopy" : "x86_64-elf-objcopy"
     },
     "include" : {
         "kernel" : ["modules/klib/inc/","inc/"]
@@ -31,7 +32,7 @@
         },
         "kernel" : {
             "as" : [],
-            "c++" : ["-O0","","-fno-rtti","-fno-exceptions","-nostdlib","-ffreestanding","-fno-stack-protector","-fno-builtin","-nostartfiles","-Wunreachable-code"],
+            "c++" : ["-O0","-fno-rtti","-fno-exceptions","-nostdlib","-ffreestanding","-fno-stack-protector","-fno-builtin","-nostartfiles","-Wunreachable-code"],
             "c" : ["-Wunreachable-code"],
             "ld" : ["-nostdlib"]
         },

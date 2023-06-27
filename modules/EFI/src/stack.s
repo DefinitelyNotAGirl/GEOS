@@ -1,8 +1,8 @@
 /*
- * Created Date: Friday May 26th 2023
+ * Created Date: Tuesday June 27th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Friday May 26th 2023 10:25:16 pm
+ * Last Modified: Tuesday June 27th 2023 1:19:55 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -27,11 +27,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  */
-#pragma once
 
-#include <stdint>
+.global stackPush
+.global stackPop
+.global getStackPointer
+.global setStackPointer
+.global tripleFault
 
-extern "C" void init_memcpy(void* src, void* dst, u64 len);
-extern "C" void init_memzero(void* target, u64 len);
-extern "C" uint64_t init_memiszero(void* target, u64 len);//returns 0 on success and 1 on error
-extern "C" void pageFaultHandler();
+setStackPointer:
+    movq %rcx, %rsp
+    ret
+
+getStackPointer:
+    movq %rsp, %rax
+    ret
+
+stackPush:
+    push %rcx
+    ret
+
+stackPop:
+    pop %rax
+    ret
+
+tripleFault:
+    movq %rcx, %r15
+    xor %rax, %rax
+    LIDT (%rax)
+    int $0xFF

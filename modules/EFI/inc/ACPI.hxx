@@ -1,8 +1,8 @@
 /*
- * Created Date: Friday May 26th 2023
+ * Created Date: Tuesday June 27th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Friday May 26th 2023 10:25:16 pm
+ * Last Modified: Tuesday June 27th 2023 2:27:02 pm
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -31,7 +31,50 @@
 
 #include <stdint>
 
-extern "C" void init_memcpy(void* src, void* dst, u64 len);
-extern "C" void init_memzero(void* target, u64 len);
-extern "C" uint64_t init_memiszero(void* target, u64 len);//returns 0 on success and 1 on error
-extern "C" void pageFaultHandler();
+#define packed __attribute__((packed));
+
+struct RSDPDescriptor {
+    char Signature[8];
+    uint8_t Checksum;
+    char OEMID[6];
+    uint8_t Revision;
+    uint32_t RsdtAddress;
+} packed;
+
+struct RSDPDescriptor20 {
+    char Signature[8];
+    uint8_t Checksum;
+    char OEMID[6];
+    uint8_t Revision;
+    uint32_t RsdtAddress;
+    uint32_t Length;
+    uint64_t XsdtAddress;
+    uint8_t ExtendedChecksum;
+    uint8_t reserved[3];
+} packed;
+
+struct ACPISDTHeader {
+  uint32_t Signature;
+  uint32_t Length;
+  uint8_t Revision;
+  uint8_t Checksum;
+  char OEMID[6];
+  char OEMTableID[8];
+  uint32_t OEMRevision;
+  uint32_t CreatorID;
+  uint32_t CreatorRevision;
+} packed;
+
+struct RSDT
+{
+    uint32_t Signature;
+    uint32_t Length;
+    uint8_t Revision;
+    uint8_t Checksum;
+    char OEMID[6];
+    char OEMTableID[8];
+    uint32_t OEMRevision;
+    uint32_t CreatorID;
+    uint32_t CreatorRevision;
+    uint32_t otherSDTs;
+} packed;

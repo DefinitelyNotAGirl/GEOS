@@ -34,28 +34,28 @@
 
 struct PACKED __ACPITABLES__
 {
-    ptr64 MADT;
-    ptr64 BERT;
-    ptr64 CPEP;
-    ptr64 DSDT;
-    ptr64 ECDT;
-    ptr64 EINJ;
-    ptr64 ERST;
-    ptr64 FADT;
-    ptr64 FACS;
-    ptr64 HEST;
-    ptr64 MSCT;
-    ptr64 MPST;
-    ptr64 PMTT;
-    ptr64 PSDT;
-    ptr64 RASF;
-    ptr64 RSDT;
-    ptr64 SBST;
-    ptr64 SLIT;
-    ptr64 SRAT;
-    ptr64 SSDT;
-    ptr64 XSDT;
-    ptr64 MCFG;
+    void* MADT;
+    void* BERT;
+    void* CPEP;
+    void* DSDT;
+    void* ECDT;
+    void* EINJ;
+    void* ERST;
+    void* FADT;
+    void* FACS;
+    void* HEST;
+    void* MSCT;
+    void* MPST;
+    void* PMTT;
+    void* PSDT;
+    void* RASF;
+    void* RSDT;
+    void* SBST;
+    void* SLIT;
+    void* SRAT;
+    void* SSDT;
+    void* XSDT;
+    void* MCFG;
 };
 
 struct PACKED __bootInfo__

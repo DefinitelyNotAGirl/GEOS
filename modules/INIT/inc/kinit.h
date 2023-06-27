@@ -1,8 +1,8 @@
-/*
- * Created Date: Friday May 26th 2023
+/**
+ * Created Date: Wednesday May 31st 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Friday May 26th 2023 10:25:16 pm
+ * Last Modified: Wednesday May 31st 2023 7:32:35 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -28,10 +28,3 @@
  * DEALINGS IN THE SOFTWARE.
  */
 #pragma once
-
-#include <stdint>
-
-extern "C" void init_memcpy(void* src, void* dst, u64 len);
-extern "C" void init_memzero(void* target, u64 len);
-extern "C" uint64_t init_memiszero(void* target, u64 len);//returns 0 on success and 1 on error
-extern "C" void pageFaultHandler();

@@ -1,8 +1,8 @@
-/*
- * Created Date: Friday May 26th 2023
+/**
+ * Created Date: Tuesday June 27th 2023
  * Author: DefinitelyNotAGirl@github
  * -----
- * Last Modified: Friday May 26th 2023 10:25:16 pm
+ * Last Modified: Tuesday June 27th 2023 2:43:06 am
  * Modified By: DefinitelyNotAGirl@github (definitelynotagirl115169@gmail.com)
  * -----
  * Copyright (c) 2023 DefinitelyNotAGirl@github
@@ -29,9 +29,12 @@
  */
 #pragma once
 
-#include <stdint>
-
-extern "C" void init_memcpy(void* src, void* dst, u64 len);
-extern "C" void init_memzero(void* target, u64 len);
-extern "C" uint64_t init_memiszero(void* target, u64 len);//returns 0 on success and 1 on error
-extern "C" void pageFaultHandler();
+struct efiConfig
+{
+    void* ACPI;
+    void* SAL_SYSTEM;
+    void* SMBIOS;
+    void* SMBIOS3;
+    void* MPS;
+    void* PROPERTIES;
+} __attribute__((packed));
