@@ -47,6 +47,7 @@ make/modules.mak
 PINFO.txt
 drawingboard.txt
 .DS_Store
+-c
 
 # util executables in root directory
 g++-12
@@ -67,4 +68,4 @@ make/*
 inc/BUILD.h
 
 # re-track specific files
-!make/EFI.mak
+!make/EFI.make

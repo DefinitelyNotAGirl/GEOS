@@ -8,11 +8,11 @@
         "c" : ["c"]
     },
     "util" : {
-        "cc" : "x86_64-elf-gcc",
-        "cxx" : "x86_64-elf-g++",
-        "as" : "x86_64-elf-as",
-        "ld" : "x86_64-elf-ld",
-        "objcopy" : "x86_64-elf-objcopy"
+        "cc" : "gcc",
+        "cxx" : "g++",
+        "as" : "as",
+        "ld" : "ld",
+        "objcopy" : "objcopy"
     },
     "include" : {
         "kernel" : ["modules/klib/inc/","inc/"]
