@@ -62,8 +62,9 @@ bin/
 geosfsroot/
 GEOS_DISK_ROOT/
 mnt/
-make/
+make/*
 
 inc/BUILD.h
 
--c
+# re-track specific files
+!make/EFI.mak
